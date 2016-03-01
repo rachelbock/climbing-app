@@ -1,0 +1,78 @@
+Climbing App 
+
+
+1. Main Activity - home page:
+
+This activity will be a home page for the app. The activity will have a Relative Layout with a horizontal Linear Layout at the top containing 4 buttons. These buttons will be on every activity screen. The 4 buttons will perform the following actions:
+
+	Home Button - brings the user back to the main activity. 
+	User Info - brings the user to the User Information activity detail page.
+	Wall Info - brings the user to the Wall Activity detail page.
+	Projects - brings the user to the Projects and Progress Activity Page.
+
+This page’s only actions will be those 4 buttons. There will be an image of the Circuit and contact information along the bottom.
+
+ 
+2. User Information Activity:
+
+This page will allow the user to input personal information the first time they use the app. This information will be stored in a database that I will create. The information requested from the user will be:
+	
+	Name
+	Height
+	Gender
+	Climb Preferences
+	Hold Type (Jug, pinch, edge, crimp, sloper, pocket)
+	Wall Type (overhung/flat/short/top out)
+	Skill level
+
+After this information has been supplied, the information will populate for the user when they visit this page again. 
+
+There will be a Climb Recommendations Fragment that lives on this page and is created once the information has been populated.
+
+The fragment will contain a list of the climbs that are within +/-1 of their skill level and meet their preferences. 
+
+
+3. Wall Information Activity:
+
+This activity will be set up as a grid with images of each of the walls. When an image is selected - the wall detail page will be launched. 
+
+The detail page will contain a list of the climbs that are on the specified wall. Each climb row will contain the climb rating, climb type and two checkboxes:
+
+	project?
+	completed?
+
+Each row will also contain a button to open up a fragment of user ratings and comments for each climb.
+
+4. Project Activity:
+
+This activity will contain two fragments.
+A project fragment containing the list of the climbs marked as projects on the wall info detail page
+A history fragment containing the list of climbs that have been marked completed.
+
+
+
+The database will contain:
+
+Gym
+	Wall
+		tags
+		wall id #
+		date last updated
+		Climb
+			tags
+			climb id #
+			rating (gym)
+			rating (user)
+			comments
+			project status
+			completed status
+
+User
+	name
+	height
+	gender
+	wall preference
+	climb preference
+	skill level
+
+

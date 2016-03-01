@@ -1,1 +1,3 @@
-Hello World I am awesome.
+Climbing App 
+
+This app will provide a way for users to track climbing progress. The app will store information about the walls at The Circuit Bouldering Gym NE. 
