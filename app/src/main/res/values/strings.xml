@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ClimbingApp</string>
+    <string name="home_activity_contact_info_text_view">The Circuit Bouldering Gym</string>
+    <string name="home_activity_circuit_gym_image_description">Image of The Circuit</string>
+    <string name="home_activity_home_button">Home</string>
+    <string name="home_activity_user_info_button">User Info</string>
+    <string name="home_activity_wall_info_button">Wall Info</string>
+    <string name="home_activity_projects_button">Projects</string>
+</resources>
