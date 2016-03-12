@@ -1,9 +1,18 @@
 <resources>
-    <string name="app_name">ClimbingApp</string>
-    <string name="home_activity_contact_info_text_view">The Circuit Bouldering Gym</string>
-    <string name="home_activity_circuit_gym_image_description">Image of The Circuit</string>
-    <string name="home_activity_home_button">Home</string>
-    <string name="home_activity_user_info_button">User Info</string>
-    <string name="home_activity_wall_info_button">Wall Info</string>
-    <string name="home_activity_projects_button">Projects</string>
+    <string name="app_name">Clamber</string>
+    <string name="home_button_text">Home</string>
+    <string name="wall_info_button">Walls</string>
+    <string name="projects_button">Projects</string>
+    <string name="user_info_button_text">User Info</string>
+    <string name="the_circuit_gym_text">The Circuit Bouldering Gym</string>
+    <string name="circuit_image">Image of Inside of Circuit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="height">Height</string>
+    <string name="skill_level">Skill Level</string>
+    <string name="user_info_button">User Info Button</string>
+    <string name="ok_button">OK</string>
 </resources>

@@ -1,0 +1,13 @@
+Clamber Tables:
+
+walls
+
+CREATE TABLE walls (id INT PRIMARY KEY, name TEXT, top_out BOOL, wall_segment INT, date_last_updated DATE)
+
+climbs
+
+CREATE TABLE climbs (climb_id INT PRIMARY KEY, gym_rating INT, user_rating INT, comments TEXT, wall_id INT, tape_color TEXT)
+
+user_information
+
+CREATE TABLE user_information (user_id INT PRIMARY KEY, name TEXT, height INT, gender TEXT, skill_level INT)

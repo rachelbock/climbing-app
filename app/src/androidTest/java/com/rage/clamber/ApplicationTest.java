@@ -1,4 +1,4 @@
-package com.rachelbock.climbingapp;
+package com.rage.clamber;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
