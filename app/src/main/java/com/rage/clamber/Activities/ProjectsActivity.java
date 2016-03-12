@@ -15,13 +15,12 @@ public class ProjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_projects);
 
 
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.projects_page_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();
     }
 
+    //TODO: Complete design of activity.
 
 }

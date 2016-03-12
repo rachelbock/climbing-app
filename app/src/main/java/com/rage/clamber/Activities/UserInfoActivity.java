@@ -20,19 +20,25 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
 
-
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+       //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.user_info_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();
 
     }
 
+    /**
+     * OnClick method that is called when the placeholder "Click Me" button is pressed.
+     * When the button is pressed, the DialogFragment is created.
+     * @param button - this param is referring to the "Click Me" button.
+     */
+
     @OnClick(R.id.user_info_click_button)
     public void onClickButtonClicked(Button button) {
         UserInfoDialogFragment fragment = new UserInfoDialogFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
     }
+
+    //TODO: Complete design of activity.
+
 }

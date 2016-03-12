@@ -14,14 +14,10 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();
-
 
     }
 

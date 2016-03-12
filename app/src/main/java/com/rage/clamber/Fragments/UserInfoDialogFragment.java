@@ -36,6 +36,11 @@ public class UserInfoDialogFragment extends DialogFragment {
     }
 
 
+    /**
+     * Method to inflate and create a dialog window. Method is called from within the
+     * UserInfoActivity to gather general user information.
+     * @return returns the Dialog fragment.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -48,13 +53,13 @@ public class UserInfoDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //what happens when ok is clicked?
+                            //TODO: What action will occur when the "OK" button is pressed?
                             }
                         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //what happens when cancel is clicked?
+                        //TODO: What action will occur when the "Cancel" button is pressed?
                     }
                 })
                 .create();

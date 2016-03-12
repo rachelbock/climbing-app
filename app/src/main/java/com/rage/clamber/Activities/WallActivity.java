@@ -14,12 +14,11 @@ public class WallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wall);
 
-
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.wall_page_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();
     }
+
+    //TODO: Complete design of activity.
 }

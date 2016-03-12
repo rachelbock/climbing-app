@@ -28,6 +28,11 @@ public class ActionBarFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Standard method to create a new ActionBar Fragment. This method is called
+     * within the various activities to set the Fragment to the top of their layout.
+     * @return returns the ActionBarFragment.
+     */
     public static ActionBarFragment newInstance () {
         ActionBarFragment fragment = new ActionBarFragment();
         Bundle args = new Bundle();
@@ -35,6 +40,10 @@ public class ActionBarFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Standard method to create and inflate the fragment layout.
+     * @return returns the inflated layout used in this fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +54,12 @@ public class ActionBarFragment extends Fragment {
         return rootView;
     }
 
+
+    /**
+     * Each of the following four OnClick methods refer to the four buttons located
+     * on the main action bar. When the button is pressed a new intent is created to
+     * open up the corresponding activity.
+     */
     @OnClick(R.id.action_bar_home_button)
     public void onHomeButtonClicked(Button button) {
         Intent intent = new Intent(getActivity(), HomePage.class);
