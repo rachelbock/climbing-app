@@ -7,6 +7,9 @@ import android.os.Bundle;
 import com.rage.clamber.Fragments.ActionBarFragment;
 import com.rage.clamber.R;
 
+/**
+ * The WallActivity contains data about each wall in the climbing gym.
+ */
 public class WallActivity extends AppCompatActivity {
 
     @Override

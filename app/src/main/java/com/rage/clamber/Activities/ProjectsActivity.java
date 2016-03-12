@@ -7,6 +7,10 @@ import android.os.Bundle;
 import com.rage.clamber.Fragments.ActionBarFragment;
 import com.rage.clamber.R;
 
+/**
+ * The ProjectsActivity contains information about climbs that have been marked as projects and
+ * tracks progress for user.
+ */
 public class ProjectsActivity extends AppCompatActivity {
 
     @Override

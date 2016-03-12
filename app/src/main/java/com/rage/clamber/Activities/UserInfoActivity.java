@@ -12,6 +12,10 @@ import com.rage.clamber.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The UserInfoActivity contains information about the user and recommendations based off of
+ * information they provide about themselves and their climbing preferences.
+ */
 public class UserInfoActivity extends AppCompatActivity {
 
     @Override

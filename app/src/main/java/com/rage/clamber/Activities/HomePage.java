@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.rage.clamber.Fragments.ActionBarFragment;
 import com.rage.clamber.R;
 
+/**
+ * The HomePage is the first page of the app. It contains an action bar for navigation to each
+ * of the activities.
+ */
 public class HomePage extends AppCompatActivity {
 
     @Override

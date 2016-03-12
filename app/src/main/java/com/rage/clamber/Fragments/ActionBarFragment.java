@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
+ * This fragment holds the action bar that displays at the top of each main activity.
  */
 public class ActionBarFragment extends Fragment {
 
@@ -34,10 +34,7 @@ public class ActionBarFragment extends Fragment {
      * @return returns the ActionBarFragment.
      */
     public static ActionBarFragment newInstance () {
-        ActionBarFragment fragment = new ActionBarFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new ActionBarFragment();
     }
 
     /**

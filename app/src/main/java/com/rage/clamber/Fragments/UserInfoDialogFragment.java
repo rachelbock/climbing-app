@@ -17,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The DialogFragment collects information on a user.
  */
 public class UserInfoDialogFragment extends DialogFragment {
 
