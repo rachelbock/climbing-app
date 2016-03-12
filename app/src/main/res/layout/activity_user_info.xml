@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rage.clamber.Activities.UserInfoActivity"
+    android:background="@color/greyBackground"
+    >
+
+    <FrameLayout
+        android:id="@+id/user_info_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/climb_tall_wall_close_up"
+        android:layout_below="@id/user_info_frame_layout"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/user_info_button" />
+
+    <Button
+        android:id="@+id/user_info_click_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click me"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

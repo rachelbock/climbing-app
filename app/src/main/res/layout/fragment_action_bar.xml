@@ -1,0 +1,54 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.rage.clamber.Fragments.ActionBarFragment">
+
+        <Button
+            android:id="@+id/action_bar_home_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/home_button_text"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            style="@android:style/ButtonBar"
+            android:background="@color/clamberMainText"
+            />
+        <Button
+            android:id="@+id/action_bar_walls_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wall_info_button"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            style="@android:style/ButtonBar"
+            android:background="@color/clamberMainText"
+            />
+        <Button
+            android:id="@+id/action_bar_projects_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/projects_button"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            style="@android:style/ButtonBar"
+            android:background="@color/clamberMainText"
+            />
+        <Button
+            android:id="@+id/action_bar_user_info_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/user_info_button_text"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            style="@android:style/ButtonBar"
+            android:background="@color/clamberMainText"
+            />
+
+</LinearLayout>
