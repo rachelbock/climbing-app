@@ -19,7 +19,7 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
 
     //TODO: Set up a listener interface
 
-    String[] walls;
+    protected String[] walls;
 
     public WallsPageRecyclerViewAdapter(String[] wallText) {
         walls = wallText;
@@ -56,7 +56,7 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
     }
 
 
-    static class WallsViewHolder extends RecyclerView.ViewHolder {
+    public static class WallsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.wall_grid_text_view)
         TextView wallTextView;
         View fullView;

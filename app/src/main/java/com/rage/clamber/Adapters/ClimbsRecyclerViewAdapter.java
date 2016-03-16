@@ -21,7 +21,7 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
     //TODO: Set up a listener interface
 
-    String [] climbGrades;
+    protected String [] climbGrades;
 
     public ClimbsRecyclerViewAdapter(String [] climbs) {
         climbGrades = climbs;
@@ -46,7 +46,7 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
         return climbGrades.length;
     }
 
-    static class ClimbsViewHolder extends RecyclerView.ViewHolder {
+    public static class ClimbsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.climb_row_comments_button)
         Button commentsButton;
