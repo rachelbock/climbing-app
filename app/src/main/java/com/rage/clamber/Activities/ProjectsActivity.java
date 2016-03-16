@@ -21,11 +21,11 @@ public class ProjectsActivity extends AppCompatActivity {
 
 
         //Sets ActionBar to top of activity screen.
+        //Sets ClimbsFragment beneath ActionBar
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.projects_page_frame_layout, ActionBarFragment.newInstance());
         transaction.replace(R.id.projects_page_climbs_fragment_frame, ClimbsFragment.newInstance());
         transaction.commit();
     }
-
 
 }

@@ -27,7 +27,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     /**
-     * Method to exit the application from the HomePage actiivty.
+     * Method to exit the application from the HomePage activity.
      */
     @Override
     public void onBackPressed() {
