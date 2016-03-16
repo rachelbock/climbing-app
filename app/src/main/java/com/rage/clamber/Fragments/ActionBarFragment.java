@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * This fragment holds the action bar that displays at the top of each main activity.
+ * ActionBar Fragment to set up the 4 main action buttons.
  */
 public class ActionBarFragment extends Fragment {
 
@@ -50,6 +50,10 @@ public class ActionBarFragment extends Fragment {
 
         return rootView;
     }
+
+    /**
+     *On Click methods to launch each activity when the corresponding button is pressed.
+     */
 
 
     /**

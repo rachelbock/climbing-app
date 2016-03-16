@@ -2,7 +2,6 @@ package com.rage.clamber.Fragments;
 
 
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -17,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * The DialogFragment collects information on a user.
+ * A fragment to display a dialog prompting for user information.
  */
 public class UserInfoDialogFragment extends DialogFragment {
 
@@ -53,13 +52,13 @@ public class UserInfoDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                            //TODO: What action will occur when the "OK" button is pressed?
+                        //TODO: Define what happens when the ok button is selected.
                             }
                         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: What action will occur when the "Cancel" button is pressed?
+                        //TODO: Define what happens when the cancel button is selected.
                     }
                 })
                 .create();

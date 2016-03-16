@@ -15,4 +15,11 @@
     <string name="skill_level">Skill Level</string>
     <string name="user_info_button">User Info Button</string>
     <string name="ok_button">OK</string>
+    <string name="climb_row_grade">Grade:</string>
+    <string name="climb_row_style">Style:</string>
+    <string name="climb_row_project">Project?</string>
+    <string name="climb_row_completed">Completed?</string>
+    <string name="climb_row_route_color">Route Color:</string>
+    <string name="title_activity_wall_sections">WallSectionsActivity</string>
+    <string name="climb_row_comments">Comments</string>
 </resources>

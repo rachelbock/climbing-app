@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.rage.clamber.Fragments.ActionBarFragment;
+import com.rage.clamber.Fragments.RecommendationsFragment;
 import com.rage.clamber.Fragments.UserInfoDialogFragment;
 import com.rage.clamber.R;
 
@@ -27,22 +28,18 @@ public class UserInfoActivity extends AppCompatActivity {
        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.user_info_frame_layout, ActionBarFragment.newInstance());
+        transaction.replace(R.id.user_activity_recommendations_frame_layout, RecommendationsFragment.newInstance());
         transaction.commit();
 
     }
 
     /**
-     * OnClick method that is called when the placeholder "Click Me" button is pressed.
-     * When the button is pressed, the DialogFragment is created.
-     * @param button - this param is referring to the "Click Me" button.
+     * When the User Info Button is clicked, opens a dialog fragment to collect user information.
      */
 
-    @OnClick(R.id.user_info_click_button)
+    @OnClick(R.id.user_activity_user_info_button)
     public void onClickButtonClicked(Button button) {
         UserInfoDialogFragment fragment = new UserInfoDialogFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
     }
-
-    //TODO: Complete design of activity.
-
 }

@@ -6,5 +6,6 @@
 
     <color name="clamberMainText">#21715d</color>
     <color name="greyBackground">#dddfdd</color>
+    <color name="blueBackground">#406281</color>
 
 </resources>
