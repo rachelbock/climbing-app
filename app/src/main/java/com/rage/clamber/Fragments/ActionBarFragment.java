@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
+ * ActionBar Fragment to set up the 4 main action buttons.
  */
 public class ActionBarFragment extends Fragment {
 
@@ -29,10 +29,7 @@ public class ActionBarFragment extends Fragment {
     }
 
     public static ActionBarFragment newInstance () {
-        ActionBarFragment fragment = new ActionBarFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new ActionBarFragment();
     }
 
     @Override
@@ -44,6 +41,10 @@ public class ActionBarFragment extends Fragment {
 
         return rootView;
     }
+
+    /**
+     *On Click methods to launch each activity when the corresponding button is pressed.
+     */
 
     @OnClick(R.id.action_bar_home_button)
     public void onHomeButtonClicked(Button button) {

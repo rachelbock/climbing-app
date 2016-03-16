@@ -14,19 +14,28 @@
         >
     </FrameLayout>
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/climb_tall_wall_close_up"
-        android:layout_below="@id/user_info_frame_layout"
-        android:layout_alignParentEnd="true"
-        android:contentDescription="@string/user_info_button" />
-
-    <Button
-        android:id="@+id/user_info_click_button"
-        android:layout_width="wrap_content"
+   <Button
+       android:id="@+id/user_activity_user_info_button"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/user_info_frame_layout"
+       android:layout_alignParentEnd="true"
+       android:text="@string/user_info_button_text"
+       />
+    <EditText
+        android:id="@+id/user_activity_user_likes_edit_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click me"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/user_info_frame_layout"
+        android:layout_toStartOf="@id/user_activity_user_info_button"
+        android:hint="What type of climbs do you like?"
         />
+    <FrameLayout
+        android:id="@+id/user_activity_recommendations_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_activity_user_info_button"
+        >
+    </FrameLayout>
+
 </RelativeLayout>
