@@ -37,7 +37,7 @@ public class UserInfoDialogFragment extends DialogFragment {
 
     /**
      * Method to inflate and create a dialog window. Method is called from within the
-     * UserInfoActivity to gather general user information.
+     * UserInfoFragment to gather general user information.
      * @return returns the Dialog fragment.
      */
     @Override

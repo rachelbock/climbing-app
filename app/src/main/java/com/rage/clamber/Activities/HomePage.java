@@ -1,12 +1,18 @@
 package com.rage.clamber.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
-import com.rage.clamber.Fragments.ActionBarFragment;
+import com.rage.clamber.Fragments.ClimbsFragment;
+import com.rage.clamber.Fragments.HomeFragment;
+import com.rage.clamber.Fragments.UserInfoFragment;
+import com.rage.clamber.Fragments.WallsFragment;
 import com.rage.clamber.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * The HomePage is the first page of the app. It contains an action bar for navigation to each
@@ -18,23 +24,45 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        ButterKnife.bind(this);
 
-        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, ActionBarFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
     }
 
-    /**
-     * Method to exit the application from the HomePage activity.
-     */
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+    @OnClick(R.id.action_bar_home_button)
+    public void onHomeButtonClicked(Button button) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance());
+        transaction.commit();
     }
+
+    @OnClick(R.id.action_bar_walls_button)
+    public void onWallsButtonClicked(Button button) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_page_frame_layout, WallsFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @OnClick(R.id.action_bar_projects_button)
+    public void onProjectsButtonClicked(Button button) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_page_frame_layout, ClimbsFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+        //TODO: Work in projects fragment - will eventually have to pass through the correct climbs.
+    }
+
+    @OnClick(R.id.action_bar_user_info_button)
+    public void onUserInfoButtonClicked(Button button) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_page_frame_layout, UserInfoFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    //TODO: Deal with backstack/on back pressed reaction
 }

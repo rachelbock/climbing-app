@@ -22,4 +22,5 @@
     <string name="climb_row_route_color">Route Color:</string>
     <string name="title_activity_wall_sections">WallSectionsActivity</string>
     <string name="climb_row_comments">Comments</string>
+    <string name="recommendations">Recommendations</string>
 </resources>

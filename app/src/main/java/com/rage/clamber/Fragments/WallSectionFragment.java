@@ -17,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Fragment called from WallActivity to display the individual wall sections on the selected
+ * Fragment called from WallFragment to display the individual wall sections on the selected
  * main Wall.
  */
 public class WallSectionFragment extends Fragment {

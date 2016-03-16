@@ -25,10 +25,6 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
         walls = wallText;
     }
 
-    /**
-     * Listener interface to pass back the wall that is selected. Called from the WallActivity
-     * to open up the Climbs fragment displaying all of the climbs on the selected Wall.
-     */
     public interface OnWallSelectedListener {
         void onWallSelected ();
     }
