@@ -35,6 +35,11 @@ public class UserInfoDialogFragment extends DialogFragment {
     }
 
 
+    /**
+     * Method to inflate and create a dialog window. Method is called from within the
+     * UserInfoActivity to gather general user information.
+     * @return returns the Dialog fragment.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

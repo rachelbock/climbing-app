@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.rage.clamber.Fragments.ActionBarFragment;
 import com.rage.clamber.R;
 
+/**
+ * The HomePage is the first page of the app. It contains an action bar for navigation to each
+ * of the activities.
+ */
 public class HomePage extends AppCompatActivity {
 
     @Override
@@ -15,9 +19,7 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();

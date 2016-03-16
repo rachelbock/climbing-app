@@ -14,6 +14,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The WallActivity contains data about each wall in the climbing gym.
+ */
 public class WallActivity extends AppCompatActivity {
 
     @Bind(R.id.wall_page_wall_1_button)
@@ -31,9 +34,7 @@ public class WallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wall);
         ButterKnife.bind(this);
 
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.wall_page_frame_layout, ActionBarFragment.newInstance());
         transaction.commit();
@@ -47,48 +48,4 @@ public class WallActivity extends AppCompatActivity {
         Picasso.with(this).load(R.drawable.wall_4).fit().centerCrop().into(wall4Button);
 
     }
-
-    /**
-     * OnClick listeners for each wall button. When clicked, the WallSectionFragment will launch
-     * with the appropriate wall's data.
-     */
-
-    @OnClick(R.id.wall_page_wall_1_button)
-    public void onWall1Click(ImageButton button) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.wall_page_linear_layout, WallSectionFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-        //TODO: Going to need to pass through the Wall number so the appropriate wall sections will display.
-
-    }
-
-    @OnClick(R.id.wall_page_wall_2_button)
-    public void onWall2Click(ImageButton button) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.wall_page_linear_layout, WallSectionFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-        //TODO: Going to need to pass through the Wall number so the appropriate wall sections will display.
-    }
-
-    @OnClick(R.id.wall_page_wall_3_button)
-    public void onWall3Click(ImageButton button) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.wall_page_linear_layout, WallSectionFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-        //TODO: Going to need to pass through the Wall number so the appropriate wall sections will display.
-    }
-
-    @OnClick(R.id.wall_page_wall_4_button)
-    public void onWall4Click(ImageButton button) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.wall_page_linear_layout, WallSectionFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-        //TODO: Going to need to pass through the Wall number so the appropriate wall sections will display.
-    }
-
-
 }

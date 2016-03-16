@@ -13,6 +13,10 @@ import com.rage.clamber.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The UserInfoActivity contains information about the user and recommendations based off of
+ * information they provide about themselves and their climbing preferences.
+ */
 public class UserInfoActivity extends AppCompatActivity {
 
     @Override
@@ -21,11 +25,7 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
 
-
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         * Sets the RecommendationsFragment below the actionbar fragment
-         */
+       //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.user_info_frame_layout, ActionBarFragment.newInstance());
         transaction.replace(R.id.user_activity_recommendations_frame_layout, RecommendationsFragment.newInstance());
@@ -42,5 +42,4 @@ public class UserInfoActivity extends AppCompatActivity {
         UserInfoDialogFragment fragment = new UserInfoDialogFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
     }
-//
 }

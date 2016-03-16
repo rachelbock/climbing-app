@@ -8,6 +8,10 @@ import com.rage.clamber.Fragments.ActionBarFragment;
 import com.rage.clamber.Fragments.ClimbsFragment;
 import com.rage.clamber.R;
 
+/**
+ * The ProjectsActivity contains information about climbs that have been marked as projects and
+ * tracks progress for user.
+ */
 public class ProjectsActivity extends AppCompatActivity {
 
     @Override
@@ -16,14 +20,12 @@ public class ProjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_projects);
 
 
-        /**
-         * Sets ActionBarFragment to top of page for navigation between activities.
-         * Sets the ClimbsFragment beneath the action bar fragment.
-         */
+        //Sets ActionBar to top of activity screen.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.projects_page_frame_layout, ActionBarFragment.newInstance());
         transaction.replace(R.id.projects_page_climbs_fragment_frame, ClimbsFragment.newInstance());
         transaction.commit();
     }
+
 
 }
