@@ -31,11 +31,13 @@ public class UserSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(User.SQL_CREATE_USERDATA);
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(User.SQL_DELETE_USERDATA);
+        onCreate(db);
     }
 }
