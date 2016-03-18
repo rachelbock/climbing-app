@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.rage.clamber.Data.User;
 import com.rage.clamber.Data.UserSQLiteHelper;
 import com.rage.clamber.R;
 
@@ -62,17 +61,14 @@ public class UserInfoDialogFragment extends DialogFragment {
                                 int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
                                 int userHeight = ((userHeightFeet * 12) + userHeightInches);
                                 int userSkill = Integer.parseInt(skillEditText.getText().toString());
-                                User user = new User(userName, userHeight, userSkill);
-                                user.setId(1);
-                                userSQLiteHelper = UserSQLiteHelper.getInstance(getActivity().getApplicationContext());
 
-                                userSQLiteHelper.getWritableDatabase().insert(User.TABLE_NAME, null, user.getContentValues());
+                                //TODO: Data will need to go to external database user table.
                             }
                         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "You can update your user information at any time by selecting the User Info button", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), R.string.user_dialog_cancel_string, Toast.LENGTH_LONG).show();
                     }
                 })
                 .create();
