@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.rage.clamber.R;
 
 /**
- *
+ * Displays users projects.
  */
 public class ProjectsFragment extends Fragment {
 

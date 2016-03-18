@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.rage.clamber.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Displays the home page.
  */
 public class HomeFragment extends Fragment {
 

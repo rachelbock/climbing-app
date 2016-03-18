@@ -25,13 +25,13 @@ public class UserInfoDialogFragment extends DialogFragment {
     private UserSQLiteHelper userSQLiteHelper;
 
     @Bind(R.id.user_info_dialog_fragment_name_edit_text)
-    EditText nameEditText;
+    public EditText nameEditText;
     @Bind(R.id.user_info_dialog_fragment_height_ft_edit_text)
-    EditText heightFtEditText;
+    public EditText heightFtEditText;
     @Bind(R.id.user_info_dialog_fragment_height_inches_edit_text)
-    EditText heightInEditText;
+    public EditText heightInEditText;
     @Bind(R.id.user_info_dialog_fragment_skill_edit_text)
-    EditText skillEditText;
+    public EditText skillEditText;
 
     public UserInfoDialogFragment() {
         // Required empty public constructor

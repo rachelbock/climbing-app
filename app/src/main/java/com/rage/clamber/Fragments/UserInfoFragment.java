@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Displays user information and recommendations.
  */
 public class UserInfoFragment extends Fragment {
 
