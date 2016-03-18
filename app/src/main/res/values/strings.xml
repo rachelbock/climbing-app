@@ -22,4 +22,17 @@
     <string name="climb_row_route_color">Route Color:</string>
     <string name="title_activity_wall_sections">WallSectionsActivity</string>
     <string name="climb_row_comments">Comments</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="height_feet">Height (feet)</string>
+    <string name="height_inches">Height (inches)</string>
+    <string name="preferences">Preferences</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="new_user_hint_text">New User? Enter a username here!</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="already_have_username">Already have a username?</string>
+    <string name="enter_username_here">Enter your username here!</string>
+    <string name="new_user">New User?</string>
+    <string name="create_username_here">Create a username here!</string>
+    <string name="user_dialog_cancel_string">You can update your user information at any time by selecting the User Info button</string>
+    <String name="user_dialog_on_negative_button_text">You can update your user information at any time by selecting the User Info button.</String>
 </resources>

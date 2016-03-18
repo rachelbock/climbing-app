@@ -9,7 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.rage.clamber.Data.UserSQLiteHelper;
 import com.rage.clamber.R;
 
 import butterknife.Bind;
@@ -20,15 +22,16 @@ import butterknife.ButterKnife;
  */
 public class UserInfoDialogFragment extends DialogFragment {
 
+    private UserSQLiteHelper userSQLiteHelper;
 
     @Bind(R.id.user_info_dialog_fragment_name_edit_text)
-    EditText nameEditText;
-    @Bind(R.id.user_info_dialog_fragment_gender_edit_text)
-    EditText genderEditText;
-    @Bind(R.id.user_info_dialog_fragment_height_edit_text)
-    EditText heightEditText;
+    public EditText nameEditText;
+    @Bind(R.id.user_info_dialog_fragment_height_ft_edit_text)
+    public EditText heightFtEditText;
+    @Bind(R.id.user_info_dialog_fragment_height_inches_edit_text)
+    public EditText heightInEditText;
     @Bind(R.id.user_info_dialog_fragment_skill_edit_text)
-    EditText skillEditText;
+    public EditText skillEditText;
 
     public UserInfoDialogFragment() {
         // Required empty public constructor
@@ -37,7 +40,7 @@ public class UserInfoDialogFragment extends DialogFragment {
 
     /**
      * Method to inflate and create a dialog window. Method is called from within the
-     * UserInfoActivity to gather general user information.
+     * UserInfoFragment to gather general user information.
      * @return returns the Dialog fragment.
      */
     @Override
@@ -52,13 +55,20 @@ public class UserInfoDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                        //TODO: Define what happens when the ok button is selected.
+
+                                String userName = nameEditText.getText().toString();
+                                int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
+                                int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
+                                int userHeight = ((userHeightFeet * 12) + userHeightInches);
+                                int userSkill = Integer.parseInt(skillEditText.getText().toString());
+
+                                //TODO: Data will need to go to external database user table.
                             }
                         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: Define what happens when the cancel button is selected.
+                        Toast.makeText(getContext(), R.string.user_dialog_cancel_string, Toast.LENGTH_LONG).show();
                     }
                 })
                 .create();

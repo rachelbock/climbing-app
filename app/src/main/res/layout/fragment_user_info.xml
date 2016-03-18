@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rage.clamber.Fragments.UserInfoFragment">
+
+    <Button
+        android:id="@+id/user_activity_user_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="@string/user_info_button_text"
+        />
+    <Button
+        android:id="@+id/user_activity_preferences_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/preferences"
+        />
+
+<TextView
+    android:id="@+id/user_fragment_recommendations_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_below="@id/user_activity_preferences_button"
+    android:text="@string/recommendations"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:layout_marginBottom="5dp"
+    />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/user_activity_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_fragment_recommendations_text"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
