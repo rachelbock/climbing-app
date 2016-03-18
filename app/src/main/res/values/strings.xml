@@ -34,5 +34,4 @@
     <string name="new_user">New User?</string>
     <string name="create_username_here">Create a username here!</string>
     <string name="user_dialog_cancel_string">You can update your user information at any time by selecting the User Info button</string>
-    <String name="user_dialog_on_negative_button_text">You can update your user information at any time by selecting the User Info button.</String>
 </resources>
