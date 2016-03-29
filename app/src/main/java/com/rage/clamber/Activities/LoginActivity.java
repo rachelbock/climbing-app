@@ -1,10 +1,11 @@
 package com.rage.clamber.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.rage.clamber.Fragments.ExistingUserLoginFragment;
+import com.rage.clamber.Fragments.UserInfoDialogFragment;
 import com.rage.clamber.R;
 
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.rage.clamber.R.layout.activity_login);
         ButterKnife.bind(this);
+
     }
 
     /**
@@ -31,17 +33,16 @@ public class LoginActivity extends AppCompatActivity {
     //TODO: submit new user button will update external database with new user.
     //TODO: submit existing user button will call external database and update app with users data.
 
-    @OnClick(R.id.login_activity_submit_new_user_button)
+    @OnClick(R.id.login_activity_new_user_button)
     public void onNewUserButtonClicked (Button button) {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+        UserInfoDialogFragment fragment = new UserInfoDialogFragment();
+        fragment.show(getSupportFragmentManager(), "dialog");
     }
 
-    @OnClick(R.id.login_activity_submit_already_user_button)
+    @OnClick(R.id.login_activity_existing_user_button)
     public void onExistingUserButtonClicked (Button button) {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+        ExistingUserLoginFragment fragment = new ExistingUserLoginFragment();
+        fragment.show(getSupportFragmentManager(), "dialog");
     }
-
 
 }

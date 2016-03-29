@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.rage.clamber.Data.UserSQLiteHelper;
 import com.rage.clamber.R;
@@ -62,13 +61,13 @@ public class UserInfoDialogFragment extends DialogFragment {
                                 int userHeight = ((userHeightFeet * 12) + userHeightInches);
                                 int userSkill = Integer.parseInt(skillEditText.getText().toString());
 
-                                //TODO: Data will need to go to external database user table.
-                            }
+
+
+                                  }
                         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), R.string.user_dialog_cancel_string, Toast.LENGTH_LONG).show();
                     }
                 })
                 .create();
