@@ -34,4 +34,6 @@
     <string name="new_user">New User?</string>
     <string name="create_username_here">Create a username here!</string>
     <string name="user_dialog_cancel_string">You can update your user information at any time by selecting the User Info button</string>
+    <string name="login_climber_image_content_description">Login Climber Image</string>
+    <string name="user_name">User Name</string>
 </resources>

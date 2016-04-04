@@ -1,6 +1,5 @@
 package com.rage.clamber.Data;
 
-import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 /**
@@ -72,14 +71,7 @@ public class User implements BaseColumns {
         this.id = id;
     }
 
-    public ContentValues getContentValues() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_USERNAME, name);
-        contentValues.put(COLUMN_HEIGHT, height);
-        contentValues.put(COLUMN_SKILL_LEVEL, skillLevel);
-        contentValues.put(COLUMN_USER_ID, id);
-        return contentValues;
-    }
+
 }
 
 

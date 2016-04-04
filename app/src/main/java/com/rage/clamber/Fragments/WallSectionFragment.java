@@ -3,6 +3,7 @@ package com.rage.clamber.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
  * Fragment called from WallFragment to display the individual wall sections on the selected
  * main Wall.
  */
-public class WallSectionFragment extends Fragment {
+public class WallSectionFragment extends Fragment implements WallsPageRecyclerViewAdapter.OnWallSelectedListener {
 
     public static final String[] WALL_NAMES = {"Wall 1", "Wall 2", "Wall 3", "Wall 4", "Wall 5","Wall 6","Wall 7","Wall 8","Wall 9", "Wall 10"};
 
@@ -46,11 +47,19 @@ public class WallSectionFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(WALL_NAMES);
+        WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(WALL_NAMES, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return rootView;
+    }
+
+    @Override
+    public void onWallSelected(String wall) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_page_frame_layout, ClimbsFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     //TODO: When the wall section is clicked - launch the Climbs Fragment.
