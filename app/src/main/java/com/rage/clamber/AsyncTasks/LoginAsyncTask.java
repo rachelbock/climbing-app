@@ -43,33 +43,24 @@ public class LoginAsyncTask extends AsyncTask<String, Integer, JSONObject> {
         String userName = params[0];
 
         try {
-            //Use ip address/port
-            URL url = new URL("http://192.168.0.103:8080/user" + userName);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            //Set up OutputStream and what will be passed into it.
-//            connection.setDoOutput(true);
-//            connection.setRequestProperty("Content-Type", "application/json");
-//            OutputStream body = new BufferedOutputStream(connection.getOutputStream());
-//
-//            JSONObject bodyObj = new JSONObject();
-//            bodyObj.put("username", userName);
-//
-//            Writer writer = new OutputStreamWriter(body);
-//            writer.write(bodyObj.toString());
-//            writer.close();
+            URL url = new URL("http://172.16.1.47:8080/user/" + userName);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
             BufferedReader reader = new BufferedReader(inputStream);
             String line;
 
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
+            while (true) {
 
+                line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                builder.append(line);
                 if (isCancelled()) {
                     return null;
                 }
-
             }
 
             json = new JSONObject(builder.toString());

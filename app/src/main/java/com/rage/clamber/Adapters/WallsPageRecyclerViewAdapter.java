@@ -16,17 +16,18 @@ import butterknife.ButterKnife;
  */
 public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPageRecyclerViewAdapter.WallsViewHolder>{
 
-
-    //TODO: Set up a listener interface
-
     protected String[] walls;
 
-    public WallsPageRecyclerViewAdapter(String[] wallText) {
+
+    public WallsPageRecyclerViewAdapter(String[] wallText, OnWallSelectedListener wallSelectedListener) {
         walls = wallText;
+        listener = wallSelectedListener;
     }
 
+    private final OnWallSelectedListener listener;
+
     public interface OnWallSelectedListener {
-        void onWallSelected ();
+        void onWallSelected(String wall);
     }
 
 
@@ -40,8 +41,16 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
 
     @Override
     public void onBindViewHolder(WallsViewHolder holder, int position) {
-        String oneWall = walls[position];
+        final String oneWall = walls[position];
         holder.wallTextView.setText(oneWall);
+        holder.fullView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             if (listener != null) {
+                 listener.onWallSelected(oneWall);
+             }
+            }
+        });
 
     }
 
