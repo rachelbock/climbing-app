@@ -19,12 +19,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by rage on 3/29/16.
+ * Async Task to correspond to New User Button in Login Activity. Checks the clamber server to see
+ * if a user exists and if not it posts the new user information to the clamber database.
  */
 public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.CreateUserResult> {
 
     public static final String TAG = NewUserAsyncTask.class.getSimpleName();
-    public enum CreateUserResult{
+
+    public enum CreateUserResult {
         SUCCESS,
         USER_ALREADY_EXISTS,
         CONNECTION_FAILURE
@@ -37,6 +39,7 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
     public interface newUserLoginInterface {
         void onNewUserSubmittedListener(CreateUserResult result);
     }
+
     private final newUserLoginInterface newUserlistener;
 
     @Override
@@ -77,50 +80,50 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
             e.printStackTrace();
         }
 
-            try {
-                if (json != null && json.getString("userName").equals(user.getName())) {
-                    return CreateUserResult.USER_ALREADY_EXISTS;
-                } else {
-                    URL url = new URL("http://192.168.0.105:8080/user");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try {
+            if (json != null && json.getString("userName").equals(user.getName())) {
+                return CreateUserResult.USER_ALREADY_EXISTS;
+            } else {
+                URL url = new URL("http://192.168.0.105:8080/user");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                    //Set up OutputStream and what will be passed into it.
-                    connection.setDoOutput(true);
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    OutputStream body = new BufferedOutputStream(connection.getOutputStream());
+                //Set up OutputStream and what will be passed into it.
+                connection.setDoOutput(true);
+                connection.setRequestProperty("Content-Type", "application/json");
+                OutputStream body = new BufferedOutputStream(connection.getOutputStream());
 
-                    JSONObject bodyObj = new JSONObject();
-                    bodyObj.put("username", user.getName());
-                    bodyObj.put("height", user.getHeight());
-                    bodyObj.put("skill", user.getSkillLevel());
+                JSONObject bodyObj = new JSONObject();
+                bodyObj.put("username", user.getName());
+                bodyObj.put("height", user.getHeight());
+                bodyObj.put("skill", user.getSkillLevel());
 
-                    Writer writer = new OutputStreamWriter(body);
-                    Log.d(TAG, bodyObj.toString());
-                    writer.write(bodyObj.toString());
-                    writer.close();
+                Writer writer = new OutputStreamWriter(body);
+                Log.d(TAG, bodyObj.toString());
+                writer.write(bodyObj.toString());
+                writer.close();
 
 
-                    InputStreamReader iStream = new InputStreamReader(connection.getInputStream());
-                    BufferedReader bufferedReader = new BufferedReader(iStream);
-                    String text;
+                InputStreamReader iStream = new InputStreamReader(connection.getInputStream());
+                BufferedReader bufferedReader = new BufferedReader(iStream);
+                String text;
 
-                    while (true) {
+                while (true) {
 
-                        text = bufferedReader.readLine();
-                        if (text == null) {
-                            break;
-                        }
-                        builder.append(text);
-                        if (isCancelled()) {
-                            return CreateUserResult.CONNECTION_FAILURE;
-                        }
+                    text = bufferedReader.readLine();
+                    if (text == null) {
+                        break;
                     }
-                    return CreateUserResult.SUCCESS;
+                    builder.append(text);
+                    if (isCancelled()) {
+                        return CreateUserResult.CONNECTION_FAILURE;
+                    }
                 }
-
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
+                return CreateUserResult.SUCCESS;
             }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
 
         Log.d(TAG, user.getName());
 
@@ -131,6 +134,6 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
 
     @Override
     protected void onPostExecute(CreateUserResult result) {
-       newUserlistener.onNewUserSubmittedListener(result);
+        newUserlistener.onNewUserSubmittedListener(result);
     }
 }

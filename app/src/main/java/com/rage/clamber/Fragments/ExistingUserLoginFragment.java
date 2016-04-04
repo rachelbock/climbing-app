@@ -41,7 +41,7 @@ public class ExistingUserLoginFragment extends DialogFragment {
                 .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((LoginActivity)getActivity()).existingUserPositiveClick(userName.getText().toString());
+                        ((LoginActivity)getActivity()).existingUserPositiveClick(userName.getText().toString().trim());
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

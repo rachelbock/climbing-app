@@ -30,6 +30,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.existingUserLoginInterface, NewUserAsyncTask.newUserLoginInterface{
 
+    public static final String TAG = LoginActivity.class.getSimpleName();
     protected String userName;
     LoginAsyncTask loginAsyncTask;
     NewUserAsyncTask newUserAsyncTask;

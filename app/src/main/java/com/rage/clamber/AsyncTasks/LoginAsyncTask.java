@@ -14,7 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by rage on 3/18/16.
+ * Async Task corresponding to the Login button on the Login Activity. Checks the clamber server
+ * to see if the user exists.
  */
 public class LoginAsyncTask extends AsyncTask<String, Integer, JSONObject> {
 
