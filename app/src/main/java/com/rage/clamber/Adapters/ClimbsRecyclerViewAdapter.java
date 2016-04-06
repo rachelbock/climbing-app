@@ -9,7 +9,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rage.clamber.Data.Climb;
 import com.rage.clamber.R;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,12 +22,10 @@ import butterknife.ButterKnife;
  */
 public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecyclerViewAdapter.ClimbsViewHolder> {
 
-    //TODO: Set up a listener interface
 
-    protected String [] climbGrades;
-
-    public ClimbsRecyclerViewAdapter(String [] climbs) {
-        climbGrades = climbs;
+    protected ArrayList<Climb> climbs;
+    public ClimbsRecyclerViewAdapter(ArrayList<Climb> climbArrayList) {
+        climbs = climbArrayList;
     }
 
 
@@ -37,13 +38,16 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
     @Override
     public void onBindViewHolder(ClimbsViewHolder holder, int position) {
-        String oneClimb = climbGrades[position];
-        holder.gradeDataTextView.setText(oneClimb);
+        Climb climb = climbs.get(position);
+        holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
+        holder.projectCheckBox.setChecked(true);
+
+
     }
 
     @Override
     public int getItemCount() {
-        return climbGrades.length;
+        return climbs.size();
     }
 
     public static class ClimbsViewHolder extends RecyclerView.ViewHolder {

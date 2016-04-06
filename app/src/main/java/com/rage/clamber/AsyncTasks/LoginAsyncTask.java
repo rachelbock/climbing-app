@@ -45,7 +45,7 @@ public class LoginAsyncTask extends AsyncTask<String, Integer, JSONObject> {
 
         try {
 
-            URL url = new URL("http://172.16.1.47:8080/user/" + userName);
+            URL url = new URL("http://192.168.0.103:8080/user/" + userName);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());

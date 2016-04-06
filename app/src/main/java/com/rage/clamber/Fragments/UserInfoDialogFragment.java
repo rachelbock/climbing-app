@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.rage.clamber.Activities.LoginActivity;
 import com.rage.clamber.Data.User;
-import com.rage.clamber.Data.UserSQLiteHelper;
 import com.rage.clamber.R;
 
 import butterknife.Bind;
@@ -23,7 +22,7 @@ import butterknife.ButterKnife;
  */
 public class UserInfoDialogFragment extends DialogFragment{
 
-    private UserSQLiteHelper userSQLiteHelper;
+
 
     @Bind(R.id.user_info_dialog_fragment_name_edit_text)
     public EditText nameEditText;

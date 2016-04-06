@@ -7,9 +7,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.rage.clamber.AsyncTasks.ClamberService;
 import com.rage.clamber.AsyncTasks.LoginAsyncTask;
 import com.rage.clamber.AsyncTasks.NewUserAsyncTask;
 import com.rage.clamber.Data.User;
@@ -22,6 +24,11 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Activity that is called on launch of the app. Allows a user to create or enter a username that will
@@ -31,6 +38,7 @@ import butterknife.OnClick;
 public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.existingUserLoginInterface, NewUserAsyncTask.newUserLoginInterface{
 
     public static final String TAG = LoginActivity.class.getSimpleName();
+    public static final String ARG_USER = "Login Activity User";
     protected String userName;
     LoginAsyncTask loginAsyncTask;
     NewUserAsyncTask newUserAsyncTask;
@@ -40,15 +48,13 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.e
         super.onCreate(savedInstanceState);
         setContentView(com.rage.clamber.R.layout.activity_login);
         ButterKnife.bind(this);
-
     }
 
     /**
      *Submit buttons launch the Home Page activity.
      */
 
-    //TODO: submit new user button will update external database with new user.
-    //TODO: submit existing user button will call external database and update app with users data.
+    //TODO: Cleanup code to remove LoginAsyncTask as retrofit implementation makes it obsolete
 
     @OnClick(R.id.login_activity_new_user_button)
     public void onNewUserButtonClicked (Button button) {
@@ -73,8 +79,39 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.e
             ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                loginAsyncTask = new LoginAsyncTask(this);
-                loginAsyncTask.execute(userName);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.0.103:8080/")
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                ClamberService clamber = retrofit.create(ClamberService.class);
+                Call<User> userCall = clamber.getExistingUser(userName);
+
+                userCall.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+
+                        User user = response.body();
+                        if (response.code() == 200) {
+                            String login = response.body().getUserName();
+                            if (userName.equals(login)) {
+                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                                intent.putExtra(ARG_USER, user);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "The user name provided is not valid", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d(TAG,"FAILURE: ",t);
+                        Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else {
                 Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
             }
@@ -129,6 +166,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.e
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, HomePage.class);
             startActivity(intent);
+
+            //TODO: get user back out of this in order to set user.
         }
     }
 }

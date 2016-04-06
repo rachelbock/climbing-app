@@ -5,8 +5,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.rage.clamber.Fragments.ClimbsFragment;
+import com.rage.clamber.Data.User;
 import com.rage.clamber.Fragments.HomeFragment;
+import com.rage.clamber.Fragments.ProjectsFragment;
 import com.rage.clamber.Fragments.UserInfoFragment;
 import com.rage.clamber.Fragments.WallsFragment;
 import com.rage.clamber.R;
@@ -20,11 +21,15 @@ import butterknife.OnClick;
  */
 public class HomePage extends AppCompatActivity {
 
+    public User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
+
+        user=getIntent().getParcelableExtra(LoginActivity.ARG_USER);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance());
@@ -50,7 +55,7 @@ public class HomePage extends AppCompatActivity {
     @OnClick(R.id.action_bar_projects_button)
     public void onProjectsButtonClicked(Button button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, ClimbsFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, ProjectsFragment.newInstance(user));
         transaction.addToBackStack(null);
         transaction.commit();
         //TODO: Work in projects fragment - will eventually have to pass through the correct climbs.
