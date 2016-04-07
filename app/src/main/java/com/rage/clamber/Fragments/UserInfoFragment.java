@@ -39,6 +39,7 @@ public class UserInfoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, rootView);
 
+        //TODO: Determine how to layout the recommended climbs with wall info
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(CLIMB_NUMS);
 //        recyclerView.setAdapter(adapter);

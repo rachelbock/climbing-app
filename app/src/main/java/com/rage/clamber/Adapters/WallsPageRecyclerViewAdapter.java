@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.R;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,18 +19,18 @@ import butterknife.ButterKnife;
  */
 public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPageRecyclerViewAdapter.WallsViewHolder>{
 
-    protected String[] walls;
+    protected ArrayList<WallSection> wallSections;
 
 
-    public WallsPageRecyclerViewAdapter(String[] wallText, OnWallSelectedListener wallSelectedListener) {
-        walls = wallText;
+    public WallsPageRecyclerViewAdapter(ArrayList<WallSection> wallSectionArrayList, OnWallSelectedListener wallSelectedListener) {
+        wallSections = wallSectionArrayList;
         listener = wallSelectedListener;
     }
 
     private final OnWallSelectedListener listener;
 
     public interface OnWallSelectedListener {
-        void onWallSelected(String wall);
+        void onWallSelected(WallSection wallSection);
     }
 
 
@@ -41,8 +44,8 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
 
     @Override
     public void onBindViewHolder(WallsViewHolder holder, int position) {
-        final String oneWall = walls[position];
-        holder.wallTextView.setText(oneWall);
+        final WallSection oneWall = wallSections.get(position);
+        holder.wallTextView.setText(oneWall.getName());
         holder.fullView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +60,7 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
 
     @Override
     public int getItemCount() {
-        return walls.length;
+        return wallSections.size();
     }
 
 

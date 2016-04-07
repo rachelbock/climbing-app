@@ -13,6 +13,9 @@ public class Climb {
     private int userRating;
     private String tape_color;
     private int wallId;
+    private boolean isProject;
+    private boolean isCompleted;
+    private String type;
 
     public int getClimbId() {
         return climbId;
@@ -52,5 +55,29 @@ public class Climb {
 
     public void setWallId(int wallId) {
         this.wallId = wallId;
+    }
+
+    public boolean isProject() {
+        return isProject;
+    }
+
+    public void setProject(boolean isProject) {
+        this.isProject = isProject;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

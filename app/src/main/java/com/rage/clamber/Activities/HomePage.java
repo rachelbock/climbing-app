@@ -21,6 +21,8 @@ import butterknife.OnClick;
  */
 public class HomePage extends AppCompatActivity {
 
+    public static final String CONNECTION_WEB_ADDRESS = "http://192.168.0.104:8080/";
+    public static final String ARG_USER = "main user";
     public User user;
 
     @Override
@@ -37,6 +39,10 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+    /**
+     *OnClick buttons for each of the action buttons at the top of the page. Each button click
+     * opens up the corresponding fragment. Passes in the User object if necessary.
+     */
     @OnClick(R.id.action_bar_home_button)
     public void onHomeButtonClicked(Button button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -47,7 +53,7 @@ public class HomePage extends AppCompatActivity {
     @OnClick(R.id.action_bar_walls_button)
     public void onWallsButtonClicked(Button button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, WallsFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, WallsFragment.newInstance(user));
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -58,7 +64,6 @@ public class HomePage extends AppCompatActivity {
         transaction.replace(R.id.home_page_frame_layout, ProjectsFragment.newInstance(user));
         transaction.addToBackStack(null);
         transaction.commit();
-        //TODO: Work in projects fragment - will eventually have to pass through the correct climbs.
     }
 
     @OnClick(R.id.action_bar_user_info_button)

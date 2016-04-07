@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
 import com.rage.clamber.AsyncTasks.ClamberService;
 import com.rage.clamber.Data.Climb;
@@ -37,7 +38,6 @@ public class ProjectsFragment extends Fragment {
 
 
     public static final String TAG = ProjectsFragment.class.getSimpleName();
-    public static final String ARG_PROJECTS_FRAGMENT = "Projects Fragment User";
     protected User mainUser;
     protected ArrayList<Climb> climbArrayList;
 
@@ -48,9 +48,14 @@ public class ProjectsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Creates the Projects Fragment. Called when the Projects Button is clicked on the Home Page.
+     * @param user - logged in user
+     * @return new Projects Fragment
+     */
     public static ProjectsFragment newInstance(User user) {
         Bundle args = new Bundle();
-        args.putParcelable(ARG_PROJECTS_FRAGMENT, user);
+        args.putParcelable(HomePage.ARG_USER, user);
         ProjectsFragment fragment = new ProjectsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -64,7 +69,7 @@ public class ProjectsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_projects, container, false);
         ButterKnife.bind(this, rootView);
 
-        mainUser = getArguments().getParcelable(ARG_PROJECTS_FRAGMENT);
+        mainUser = getArguments().getParcelable(HomePage.ARG_USER);
 
         climbArrayList = new ArrayList<>();
 
@@ -77,13 +82,19 @@ public class ProjectsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Method to make a network call to the Clamber Server to get all Climbs that have been marked
+     * as a project by the user. It updates the ClimbsRecyclerViewAdapter with the list of climbs
+     * to display
+     * @param userName - userName is used in the database query to return the appropriate projects.
+     */
     public void getProjectsforUser(String userName) {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.103:8080/")
+                    .baseUrl(HomePage.CONNECTION_WEB_ADDRESS)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
@@ -95,12 +106,10 @@ public class ProjectsFragment extends Fragment {
             projectsCall.enqueue(new Callback<List<Climb>>() {
                 @Override
                 public void onResponse(Call<List<Climb>> call, Response<List<Climb>> response) {
-                    Log.d(TAG, "got response: " + response.code());
                     if (response.code() == 200) {
                        List<Climb> climbs = response.body();
 
                        for (int i = 0; i < climbs.size(); i++) {
-                           Log.d(TAG, "adding result");
                            climbArrayList.add(climbs.get(i));
                         }
                     }

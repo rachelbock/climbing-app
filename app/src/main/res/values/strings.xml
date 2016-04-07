@@ -36,4 +36,11 @@
     <string name="user_dialog_cancel_string">You can update your user information at any time by selecting the User Info button</string>
     <string name="login_climber_image_content_description">Login Climber Image</string>
     <string name="user_name">User Name</string>
+    <string name="enter_username">Please enter a user name</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="invalid_username">The user name provided is not valid</string>
+    <string name="login_unsuccessful">Login Unsuccessful</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="connection_failure">Connection Failure</string>
+    <string name="success">Success</string>
 </resources>

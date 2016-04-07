@@ -24,10 +24,10 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
 
     protected ArrayList<Climb> climbs;
+
     public ClimbsRecyclerViewAdapter(ArrayList<Climb> climbArrayList) {
         climbs = climbArrayList;
     }
-
 
     @Override
     public ClimbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,8 +40,10 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     public void onBindViewHolder(ClimbsViewHolder holder, int position) {
         Climb climb = climbs.get(position);
         holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
-        holder.projectCheckBox.setChecked(true);
-
+        holder.projectCheckBox.setChecked(climb.isProject());
+        holder.completedCheckBox.setChecked(climb.isCompleted());
+        holder.styleDataTextView.setText(climb.getType());
+        holder.routeColorTextView.setText(climb.getTape_color());
 
     }
 

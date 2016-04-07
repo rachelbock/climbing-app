@@ -1,21 +1,37 @@
 package com.rage.clamber.Fragments;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.WallsPageRecyclerViewAdapter;
+import com.rage.clamber.AsyncTasks.ClamberService;
+import com.rage.clamber.Data.User;
+import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Fragment called from WallFragment to display the individual wall sections on the selected
@@ -23,7 +39,12 @@ import butterknife.ButterKnife;
  */
 public class WallSectionFragment extends Fragment implements WallsPageRecyclerViewAdapter.OnWallSelectedListener {
 
-    public static final String[] WALL_NAMES = {"Wall 1", "Wall 2", "Wall 3", "Wall 4", "Wall 5","Wall 6","Wall 7","Wall 8","Wall 9", "Wall 10"};
+    public static final String TAG = WallSectionFragment.class.getSimpleName();
+    public static final String ARG_WALL_SECTION = "Wall Section Id";
+    protected User mainUser;
+    protected ArrayList<WallSection> wallSections;
+    protected int wall;
+
 
     @Bind(R.id.walls_page_grid_recycler_view)
     RecyclerView recyclerView;
@@ -32,9 +53,17 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
         // Required empty public constructor
     }
 
-    public static WallSectionFragment newInstance() {
+    /**
+     * Creates a WallSectionFragment - called from teh Walls Fragment.
+     * @param user - the logged in user.
+     * @param wallId - the main wall that is currently selected
+     * @return - new WallSectionFragment
+     */
+    public static WallSectionFragment newInstance(User user, int wallId) {
         WallSectionFragment fragment = new WallSectionFragment();
         Bundle args = new Bundle();
+        args.putParcelable(HomePage.ARG_USER, user);
+        args.putInt(WallsFragment.ARG_WALL_ID, wallId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,23 +74,68 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_wall_section, container, false);
         ButterKnife.bind(this, rootView);
-
+        wallSections = new ArrayList<>();
+        mainUser = getArguments().getParcelable(HomePage.ARG_USER);
+        wall = getArguments().getInt(WallsFragment.ARG_WALL_ID);
+        getWallSectionsByWall(mainUser.getUserName(), wall);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(WALL_NAMES, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
         return rootView;
     }
 
+    /**
+     * Method to make a network call to the Clamber Server to get all WallSections for the specified
+     * Wall. It updates the WallsPageRecyclerViewAdapter to display the returned WallSection data.
+     * @param userName - userName is needed for the path parameters.
+     * @param wallId - wallId tells the query which wall to pull sections from.
+     */
+    public void getWallSectionsByWall(String userName, int wallId) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(HomePage.CONNECTION_WEB_ADDRESS)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+
+            ClamberService clamber = retrofit.create(ClamberService.class);
+            final Call<List<WallSection>> wallSectionCall = clamber.getWallSectionByWall(userName, wallId);
+
+            wallSectionCall.enqueue(new Callback<List<WallSection>>() {
+                @Override
+                public void onResponse(Call<List<WallSection>> call, Response<List<WallSection>> response) {
+
+                    if (response.code() == 200){
+                     List<WallSection> wallSectionsArrayList = response.body();
+                        for (int i = 0; i < wallSectionsArrayList.size(); i++){
+                            wallSections.add(wallSectionsArrayList.get(i));
+                        }
+                    }
+
+                    WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                }
+
+                @Override
+                public void onFailure(Call<List<WallSection>> call, Throwable t) {
+                    Log.d(TAG, "Failure: ", t);
+                }
+            });
+        }
+    }
+
+    /**
+     * Listener on the adapter to return which wallSection was selected. Launches the Climbs Fragment.
+     * @param wallSection - the wallsection that the user selected.
+     */
     @Override
-    public void onWallSelected(String wall) {
+    public void onWallSelected(WallSection wallSection) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, ClimbsFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, ClimbsFragment.newInstance(mainUser, wall, wallSection.getId()));
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    //TODO: When the wall section is clicked - launch the Climbs Fragment.
-
 }
