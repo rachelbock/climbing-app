@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecyclerViewAdapter.ClimbsViewHolder> {
 
 
-    protected ArrayList<Climb> climbs;
+    protected List<Climb> climbs;
 
-    public ClimbsRecyclerViewAdapter(ArrayList<Climb> climbArrayList) {
+    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList) {
         climbs = climbArrayList;
     }
 

@@ -42,6 +42,7 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
     public static final String TAG = WallSectionFragment.class.getSimpleName();
     public static final String ARG_WALL_SECTION = "Wall Section Id";
     protected User mainUser;
+    //TODO: Make List instead of ArrayList
     protected ArrayList<WallSection> wallSections;
     protected int wall;
 
@@ -108,9 +109,10 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
 
                     if (response.code() == 200){
                      List<WallSection> wallSectionsArrayList = response.body();
-                        for (int i = 0; i < wallSectionsArrayList.size(); i++){
-                            wallSections.add(wallSectionsArrayList.get(i));
-                        }
+                            wallSections.addAll(wallSectionsArrayList);
+                    }
+                    else {
+                        Log.d(TAG, "Non 200 response received - check server");
                     }
 
                     WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this);
@@ -121,7 +123,7 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
 
                 @Override
                 public void onFailure(Call<List<WallSection>> call, Throwable t) {
-                    Log.d(TAG, "Failure: ", t);
+                    Log.d(TAG, "Failure on retrieving wall sections by wall id ");
                 }
             });
         }

@@ -39,7 +39,7 @@ public class ClimbsFragment extends Fragment {
 
     public static final String TAG = ClimbsFragment.class.getSimpleName();
     protected User mainUser;
-    protected ArrayList<Climb> climbArrayList;
+    protected List<Climb> climbArrayList;
     protected int wallSectionIdNum;
     protected int wallIdNum;
 
@@ -113,13 +113,16 @@ public class ClimbsFragment extends Fragment {
                         recyclerView.setAdapter(adapter);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                     }
+                    else {
+                        Log.d(TAG, "Non 200 response code returned - check server");
+                    }
 
 
                 }
 
                 @Override
                 public void onFailure(Call<List<Climb>> call, Throwable t) {
-                    Log.d(TAG, "Failure: ", t);
+                    Log.d(TAG, "Failure while attempting to return climbs by wall section");
 
                 }
             });

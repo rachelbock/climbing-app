@@ -10,6 +10,7 @@ import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
  */
 public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPageRecyclerViewAdapter.WallsViewHolder>{
 
-    protected ArrayList<WallSection> wallSections;
+    protected List<WallSection> wallSections;
 
 
     public WallsPageRecyclerViewAdapter(ArrayList<WallSection> wallSectionArrayList, OnWallSelectedListener wallSelectedListener) {

@@ -39,7 +39,7 @@ public class ProjectsFragment extends Fragment {
 
     public static final String TAG = ProjectsFragment.class.getSimpleName();
     protected User mainUser;
-    protected ArrayList<Climb> climbArrayList;
+    protected List<Climb> climbArrayList;
 
     @Bind(R.id.projects_fragment_recycler_view)
     RecyclerView recyclerView;
@@ -113,15 +113,19 @@ public class ProjectsFragment extends Fragment {
                            climbArrayList.add(climbs.get(i));
                         }
                     }
+                    else {
+                        Log.d(TAG, "Non 200 response code returned - check server");
+                    }
 
                     ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(climbArrayList);
                     recyclerView.setAdapter(adapter);
+
 
                 }
 
                 @Override
                 public void onFailure(Call<List<Climb>> call, Throwable t) {
-                    Log.d(TAG, "Failure: ", t);
+                    Log.d(TAG, "Failure when attempting to return projects for user");
                 }
             });
 
