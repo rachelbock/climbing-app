@@ -1,50 +1,79 @@
 package com.rage.clamber.Data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Class to hold data on an individual user.
  */
-public class User implements BaseColumns {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class User implements BaseColumns, Parcelable {
 
-    private String name;
+    private String userName;
     private int height;
     private int skillLevel;
     private int id;
 
-    public static final String TABLE_NAME = "users";
-    public static final String COLUMN_USERNAME = "name";
-    public static final String COLUMN_HEIGHT = "height";
-    public static final String COLUMN_SKILL_LEVEL = "skill_level";
-    public static final String COLUMN_USER_ID = "id";
 
-    public static final String SQL_CREATE_USERDATA = "CREATE TABLE " + User.TABLE_NAME + " (" +
-            User.COLUMN_USER_ID + " INTEGER PRIMARY KEY, " +
-            User.COLUMN_USERNAME + " TEXT, " +
-            User.COLUMN_HEIGHT + " INTEGER, " +
-            User.COLUMN_SKILL_LEVEL + " INTEGER)";
 
-    public static final String SQL_DELETE_USERDATA = "DROP TABLE IF EXISTS " + User.TABLE_NAME;
+    public User() {
+        // No-arg constructor for jackson
+    }
 
     public User(String userName, int userHeight, int userSkillLevel) {
-        name = userName;
+        this.userName = userName;
         height = userHeight;
         skillLevel = userSkillLevel;
     }
 
     public User(String userName, int userHeight, int userSkillLevel, int userID) {
-        name = userName;
+        this.userName = userName;
         height = userHeight;
         skillLevel = userSkillLevel;
         id = userID;
     }
 
-    public String getName() {
-        return name;
+    protected User(Parcel in) {
+        userName = in.readString();
+        height = in.readInt();
+        skillLevel = in.readInt();
+        id = in.readInt();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userName);
+        dest.writeInt(height);
+        dest.writeInt(skillLevel);
+        dest.writeInt(id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getHeight() {

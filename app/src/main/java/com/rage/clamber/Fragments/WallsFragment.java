@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.rage.clamber.Activities.HomePage;
+import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +23,8 @@ import butterknife.OnClick;
  */
 public class WallsFragment extends Fragment {
 
+    public static final String ARG_WALL_ID = "Wall ID";
+    protected User mainUser;
     @Bind(R.id.wall_page_wall_1_button)
     public ImageButton wall1Button;
     @Bind(R.id.wall_page_wall_2_button)
@@ -34,8 +38,12 @@ public class WallsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static WallsFragment newInstance() {
-        return new WallsFragment();
+    public static WallsFragment newInstance(User user) {
+        Bundle args = new Bundle();
+        args.putParcelable(HomePage.ARG_USER, user);
+        WallsFragment fragment = new WallsFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -43,6 +51,7 @@ public class WallsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_walls, container, false);
         ButterKnife.bind(this, rootView);
+        mainUser = getArguments().getParcelable(HomePage.ARG_USER);
 
         //Sets the images for the image buttons.
         Picasso.with(getActivity()).load(R.drawable.wall_1).fit().centerCrop().into(wall1Button);
@@ -52,41 +61,39 @@ public class WallsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * OnClick listeners for each of the walls. When selected, the logged in user and wall number
+     * are passed through to the WallSectionFragment to display the appropriate WallSection list.
+     */
     @OnClick(R.id.wall_page_wall_1_button)
     public void onWall1ButtonClicked(ImageButton button) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance(mainUser, 1));
         transaction.addToBackStack(null);
         transaction.commit();
-
-        //TODO: Pass in wall 1 wall sections
     }
     @OnClick(R.id.wall_page_wall_2_button)
     public void onWall2ButtonClicked(ImageButton button) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance(mainUser, 2));
         transaction.addToBackStack(null);
         transaction.commit();
-
-        //TODO: Pass in wall 2 wall sections
     }
     @OnClick(R.id.wall_page_wall_3_button)
     public void onWall3ButtonClicked(ImageButton button) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance(mainUser, 3));
         transaction.addToBackStack(null);
         transaction.commit();
 
-        //TODO: Pass in wall 3 wall sections
     }
     @OnClick(R.id.wall_page_wall_4_button)
     public void onWall4ButtonClicked(ImageButton button){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, WallSectionFragment.newInstance(mainUser, 4));
         transaction.addToBackStack(null);
         transaction.commit();
 
-        //Todo: Pass in wall 4 wall sections.
     }
 
 

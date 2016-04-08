@@ -3,15 +3,12 @@ package com.rage.clamber.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
 import com.rage.clamber.R;
 
 import butterknife.Bind;
@@ -42,10 +39,11 @@ public class UserInfoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, rootView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(CLIMB_NUMS);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //TODO: Determine how to layout the recommended climbs with wall info
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(CLIMB_NUMS);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return rootView;
     }

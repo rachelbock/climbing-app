@@ -3,6 +3,7 @@ package com.rage.clamber.AsyncTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Data.User;
 
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
         User user = params[0];
         try {
             //Use ip address/port
-            URL url = new URL("http://192.168.0.105:8080/user/" + user.getName());
+            URL url = new URL(HomePage.CONNECTION_WEB_ADDRESS + "user/" + user.getUserName());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
@@ -81,10 +82,10 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
         }
 
         try {
-            if (json != null && json.getString("userName").equals(user.getName())) {
+            if (json != null && json.getString("userName").equals(user.getUserName())) {
                 return CreateUserResult.USER_ALREADY_EXISTS;
             } else {
-                URL url = new URL("http://192.168.0.105:8080/user");
+                URL url = new URL(HomePage.CONNECTION_WEB_ADDRESS + "user/");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 //Set up OutputStream and what will be passed into it.
@@ -93,7 +94,7 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
                 OutputStream body = new BufferedOutputStream(connection.getOutputStream());
 
                 JSONObject bodyObj = new JSONObject();
-                bodyObj.put("username", user.getName());
+                bodyObj.put("username", user.getUserName());
                 bodyObj.put("height", user.getHeight());
                 bodyObj.put("skill", user.getSkillLevel());
 
@@ -125,7 +126,7 @@ public class NewUserAsyncTask extends AsyncTask<User, Integer, NewUserAsyncTask.
             e.printStackTrace();
         }
 
-        Log.d(TAG, user.getName());
+        Log.d(TAG, user.getUserName());
 
 
         return CreateUserResult.CONNECTION_FAILURE;
