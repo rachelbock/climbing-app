@@ -127,7 +127,7 @@ public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdap
 
                 @Override
                 public void onFailure(Call<List<Climb>> call, Throwable t) {
-                    Log.d(TAG, "Failure when attempting to return projects for user");
+                    Log.d(TAG, "Failure when attempting to return projects for user", t);
                 }
             });
 
@@ -164,7 +164,7 @@ public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdap
 
                 @Override
                 public void onFailure(Call<Project> call, Throwable t) {
-                    Log.d(TAG, "Failed to set up project for user:" + mainUser.getUserName());
+                    Log.d(TAG, "Failed to set up project for user:" + mainUser.getUserName(), t);
                 }
             });
         } else {
@@ -182,7 +182,7 @@ public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdap
 
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName());
+                    Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName(), t);
                 }
             });
         }
@@ -218,7 +218,7 @@ public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdap
 
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.d(TAG, "Failed to set up completed climb for user:" + mainUser.getUserName());
+                    Log.d(TAG, "Failed to set up completed climb for user:" + mainUser.getUserName(), t);
 
                 }
 
@@ -239,7 +239,7 @@ public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdap
 
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName());
+                    Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName(), t);
 
                 }
             });
