@@ -43,7 +43,7 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
     public static final String ARG_WALL_SECTION = "Wall Section Id";
     protected User mainUser;
     //TODO: Make List instead of ArrayList
-    protected ArrayList<WallSection> wallSections;
+    protected List<WallSection> wallSections;
     protected int wall;
 
 
