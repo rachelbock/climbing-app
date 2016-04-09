@@ -21,7 +21,7 @@ import butterknife.OnClick;
  */
 public class HomePage extends AppCompatActivity {
 
-    public static final String CONNECTION_WEB_ADDRESS = "http://149.175.37.161:8080/";
+    public static final String CONNECTION_WEB_ADDRESS = "http://192.168.0.105:8080/";
     public static final String ARG_USER = "main user";
     public User user;
 

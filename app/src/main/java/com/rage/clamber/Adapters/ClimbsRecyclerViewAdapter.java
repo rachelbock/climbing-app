@@ -1,6 +1,7 @@
 package com.rage.clamber.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rage.clamber.Data.Climb;
+import com.rage.clamber.Fragments.ProjectsFragment;
 import com.rage.clamber.R;
 
 import java.util.List;
@@ -25,8 +27,21 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
     protected List<Climb> climbs;
 
-    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList) {
+    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList, onProjectCheckBoxClickedListener ProjectcheckBoxlistener, onCompletedCheckBoxClickedListener CompletedCheckBoxListener) {
         climbs = climbArrayList;
+        projectlistener = ProjectcheckBoxlistener;
+        completedListener = CompletedCheckBoxListener;
+    }
+
+    private final onProjectCheckBoxClickedListener projectlistener;
+    private final onCompletedCheckBoxClickedListener completedListener;
+
+    public interface onProjectCheckBoxClickedListener {
+        public void onProjectCheckBoxClicked(int climbId,  boolean isChecked);
+    }
+
+    public interface onCompletedCheckBoxClickedListener{
+        public void onCompletedCheckBoxClicked(int climbId, boolean isChecked);
     }
 
     @Override
@@ -37,14 +52,36 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     }
 
     @Override
-    public void onBindViewHolder(ClimbsViewHolder holder, int position) {
+    public void onBindViewHolder(final ClimbsViewHolder holder, int position) {
         Climb climb = climbs.get(position);
+        Log.d(ProjectsFragment.TAG, "Climb id: " + climb.getClimbId());
         holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
         holder.projectCheckBox.setChecked(climb.isProject());
         holder.completedCheckBox.setChecked(climb.isCompleted());
         holder.styleDataTextView.setText(climb.getType());
         holder.routeColorTextView.setText(climb.getTape_color());
 
+        holder.projectCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (projectlistener != null){
+                    Climb oneClimb = climbs.get(holder.getAdapterPosition());
+                    projectlistener.onProjectCheckBoxClicked(oneClimb.getClimbId(), oneClimb.isProject());
+                    oneClimb.setProject(!oneClimb.isProject());
+                }
+            }
+        });
+
+        holder.completedCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (completedListener != null){
+                    Climb oneClimb = climbs.get(holder.getAdapterPosition());
+                    completedListener.onCompletedCheckBoxClicked(oneClimb.getClimbId(), oneClimb.isCompleted());
+                    oneClimb.setCompleted(!oneClimb.isCompleted());
+                }
+            }
+        });
     }
 
     @Override
@@ -82,10 +119,16 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
         @Bind(R.id.climb_row_style_text)
         TextView styleTextView;
 
+        View fullView;
+
         public ClimbsViewHolder(View itemView) {
             super(itemView);
+            fullView = itemView;
+
             ButterKnife.bind(this, itemView);
 
         }
     }
+
+
 }

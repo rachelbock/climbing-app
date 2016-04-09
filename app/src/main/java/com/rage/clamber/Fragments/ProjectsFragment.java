@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
 import com.rage.clamber.AsyncTasks.ClamberService;
+import com.rage.clamber.AsyncTasks.Requests.UserClimbDataRequest;
 import com.rage.clamber.Data.Climb;
+import com.rage.clamber.Data.Project;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
 
@@ -34,7 +36,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Displays users projects.
  */
-public class ProjectsFragment extends Fragment {
+public class ProjectsFragment extends Fragment implements ClimbsRecyclerViewAdapter.onProjectCheckBoxClickedListener, ClimbsRecyclerViewAdapter.onCompletedCheckBoxClickedListener {
 
 
     public static final String TAG = ProjectsFragment.class.getSimpleName();
@@ -86,6 +88,7 @@ public class ProjectsFragment extends Fragment {
      * Method to make a network call to the Clamber Server to get all Climbs that have been marked
      * as a project by the user. It updates the ClimbsRecyclerViewAdapter with the list of climbs
      * to display
+     *
      * @param userName - userName is used in the database query to return the appropriate projects.
      */
     public void getProjectsforUser(String userName) {
@@ -107,17 +110,16 @@ public class ProjectsFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Climb>> call, Response<List<Climb>> response) {
                     if (response.code() == 200) {
-                       List<Climb> climbs = response.body();
+                        List<Climb> climbs = response.body();
 
-                       for (int i = 0; i < climbs.size(); i++) {
-                           climbArrayList.add(climbs.get(i));
+                        for (int i = 0; i < climbs.size(); i++) {
+                            climbArrayList.add(climbs.get(i));
                         }
-                    }
-                    else {
+                    } else {
                         Log.d(TAG, "Non 200 response code returned - check server");
                     }
 
-                    ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(climbArrayList);
+                    ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(climbArrayList, ProjectsFragment.this, ProjectsFragment.this);
                     recyclerView.setAdapter(adapter);
 
 
@@ -131,4 +133,118 @@ public class ProjectsFragment extends Fragment {
 
         }
     }
+
+
+    /**
+     * Method called from the ClimbRecyclerViewAdapter when the Project Checkbox is clicked. It returns the
+     * climb Id and boolean value for whether or not the box is checked. With that information, a network
+     * call is made to either POST a new project to the database or DELETE an existing project for the user.
+     * @param climbId - the id of the climb where the project checkbox was selected
+     * @param isChecked - the boolean value of the project checkbox.
+     */
+    @Override
+    public void onProjectCheckBoxClicked(int climbId, boolean isChecked) {
+        UserClimbDataRequest request = new UserClimbDataRequest();
+        request.setClimbId(climbId);
+        request.setUsername(mainUser.getUserName());
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HomePage.CONNECTION_WEB_ADDRESS)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        ClamberService clamber = retrofit.create(ClamberService.class);
+        Log.d(TAG, "The id is: " + climbId + " and isChecked is: " + isChecked);
+        if (!isChecked) {
+
+            final Call<Project> createProjectCall = clamber.createProject(request);
+            createProjectCall.enqueue(new Callback<Project>() {
+                @Override
+                public void onResponse(Call<Project> call, Response<Project> response) {
+                    Log.d(TAG, "Successfully set up project for user: " + mainUser.getUserName());
+                }
+
+                @Override
+                public void onFailure(Call<Project> call, Throwable t) {
+                    Log.d(TAG, "Failed to set up project for user:" + mainUser.getUserName());
+                }
+            });
+        } else {
+            final Call<Boolean> removeProjectCall = clamber.removeProject(mainUser.getUserName(), climbId);
+            removeProjectCall.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.body()) {
+                        Log.d(TAG, "Successfully removed project for user: " + mainUser.getUserName());
+                    } else {
+                        Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName());
+                }
+            });
+        }
+    }
+
+
+    /**
+     * Method called from the ClimbRecyclerViewAdapter when the Completed Checkbox is clicked. It returns the
+     * climb Id and boolean value for whether or not the box is checked. With that information, a network
+     * call is made to either POST a new completed climb to the database or DELETE an existing one for the user.
+     * @param climbId - the id of the climb where the completed checkbox was selected
+     * @param isChecked - the boolean value of the completed checkbox.
+     */
+    @Override
+    public void onCompletedCheckBoxClicked(int climbId, boolean isChecked) {
+        UserClimbDataRequest request = new UserClimbDataRequest();
+        request.setClimbId(climbId);
+        request.setUsername(mainUser.getUserName());
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HomePage.CONNECTION_WEB_ADDRESS)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        ClamberService clamber = retrofit.create(ClamberService.class);
+        Log.d(TAG, "The id is: " + climbId + " and isChecked is: " + isChecked);
+        if (!isChecked){
+
+            final Call<Boolean> createCompletedCall = clamber.createCompleted(request);
+            createCompletedCall.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Log.d(TAG, "Successfully set up completed climb for user: " + mainUser.getUserName());
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.d(TAG, "Failed to set up completed climb for user:" + mainUser.getUserName());
+
+                }
+
+            });
+        }
+        else {
+            final Call<Boolean> removeCompletedCall = clamber.removeCompleted(mainUser.getUserName(), climbId);
+            removeCompletedCall.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.body()) {
+                        Log.d(TAG, "Successfully removed completed climb for user: " + mainUser.getUserName());
+                    } else {
+                        Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName());
+
+                }
+            });
+        }
+
+    }
 }
+

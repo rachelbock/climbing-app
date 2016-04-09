@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,7 +22,7 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
     protected List<WallSection> wallSections;
 
 
-    public WallsPageRecyclerViewAdapter(ArrayList<WallSection> wallSectionArrayList, OnWallSelectedListener wallSelectedListener) {
+    public WallsPageRecyclerViewAdapter(List<WallSection> wallSectionArrayList, OnWallSelectedListener wallSelectedListener) {
         wallSections = wallSectionArrayList;
         listener = wallSelectedListener;
     }
