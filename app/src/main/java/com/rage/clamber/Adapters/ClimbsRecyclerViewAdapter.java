@@ -10,7 +10,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rage.clamber.Networking.ApiManager;
+import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.Data.Climb;
+import com.rage.clamber.Data.Project;
+import com.rage.clamber.Data.User;
 import com.rage.clamber.Fragments.ProjectsFragment;
 import com.rage.clamber.R;
 
@@ -18,6 +22,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Adapter to display the rows of climbs.
@@ -25,24 +32,20 @@ import butterknife.ButterKnife;
 public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecyclerViewAdapter.ClimbsViewHolder> {
 
 
+    public static final String TAG = ClimbsRecyclerViewAdapter.class.getSimpleName();
     protected List<Climb> climbs;
+    protected User mainUser;
 
-    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList, onProjectCheckBoxClickedListener ProjectcheckBoxlistener, onCompletedCheckBoxClickedListener CompletedCheckBoxListener) {
+    /**
+     * Constructor for adapter
+     * @param climbArrayList - list of climbs provided by the class that calls the adapter
+     * @param user - the logged in user
+     */
+    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList, User user) {
         climbs = climbArrayList;
-        projectlistener = ProjectcheckBoxlistener;
-        completedListener = CompletedCheckBoxListener;
+        mainUser = user;
     }
 
-    private final onProjectCheckBoxClickedListener projectlistener;
-    private final onCompletedCheckBoxClickedListener completedListener;
-
-    public interface onProjectCheckBoxClickedListener {
-        public void onProjectCheckBoxClicked(int climbId,  boolean isChecked);
-    }
-
-    public interface onCompletedCheckBoxClickedListener{
-        public void onCompletedCheckBoxClicked(int climbId, boolean isChecked);
-    }
 
     @Override
     public ClimbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,6 +54,9 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
         return new ClimbsViewHolder(climbsView);
     }
 
+    /**
+     * Sets the climbs contained in the list of climbs to their row.
+     */
     @Override
     public void onBindViewHolder(final ClimbsViewHolder holder, int position) {
         Climb climb = climbs.get(position);
@@ -61,34 +67,123 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
         holder.styleDataTextView.setText(climb.getType());
         holder.routeColorTextView.setText(climb.getTape_color());
 
+        //OnClickListener for the ProjectCheckbox. When the checkbox is checked, a network call is made
+        //to the Clamber Server to add that Project for the user. If the checkbox is unchecked, a call
+        //is made to delete the project from the database. If either of those actions fail, a Log
+        //message is printed.
         holder.projectCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (projectlistener != null){
-                    Climb oneClimb = climbs.get(holder.getAdapterPosition());
-                    projectlistener.onProjectCheckBoxClicked(oneClimb.getClimbId(), oneClimb.isProject());
-                    oneClimb.setProject(!oneClimb.isProject());
+                Climb oneClimb = climbs.get(holder.getAdapterPosition());
+
+                UserClimbDataRequest request = new UserClimbDataRequest();
+                request.setClimbId(oneClimb.getClimbId());
+                request.setUsername(mainUser.getUserName());
+
+                if (!oneClimb.isProject()) {
+
+                    final Call<Project> createProjectCall = ApiManager.getClamberService().createProject(request);
+                    createProjectCall.enqueue(new Callback<Project>() {
+                        @Override
+                        public void onResponse(Call<Project> call, Response<Project> response) {
+                            Log.d(TAG, "Successfully set up project for user: " + mainUser.getUserName());
+                        }
+
+                        @Override
+                        public void onFailure(Call<Project> call, Throwable t) {
+                            Log.d(TAG, "Failed to set up project for user:" + mainUser.getUserName(), t);
+                        }
+                    });
+                } else {
+                    final Call<Boolean> removeProjectCall = ApiManager.getClamberService().removeProject(mainUser.getUserName(), oneClimb.getClimbId());
+                    removeProjectCall.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.body()) {
+                                Log.d(TAG, "Successfully removed project for user: " + mainUser.getUserName());
+                            } else {
+                                Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName());
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            Log.d(TAG, "Failed to delete project for user: " + mainUser.getUserName(), t);
+                        }
+                    });
                 }
+                oneClimb.setProject(!oneClimb.isProject());
             }
         });
 
+        //OnClickListener for the CompletedCheckbox. When the checkbox is checked, a network call is made
+        //to the Clamber Server to add the climb as a completed climb for the user. If the checkbox
+        // is unchecked, a call is made to delete the completed climb from the database. If either
+        // of those actions fail, a Log message is printed.
         holder.completedCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (completedListener != null){
-                    Climb oneClimb = climbs.get(holder.getAdapterPosition());
-                    completedListener.onCompletedCheckBoxClicked(oneClimb.getClimbId(), oneClimb.isCompleted());
-                    oneClimb.setCompleted(!oneClimb.isCompleted());
+                Climb oneClimb = climbs.get(holder.getAdapterPosition());
+
+                UserClimbDataRequest request = new UserClimbDataRequest();
+                request.setClimbId(oneClimb.getClimbId());
+                request.setUsername(mainUser.getUserName());
+
+                if (!oneClimb.isCompleted()){
+
+                    final Call<Boolean> createCompletedCall = ApiManager.getClamberService().createCompleted(request);
+                    createCompletedCall.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            Log.d(TAG, "Successfully set up completed climb for user: " + mainUser.getUserName());
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            Log.d(TAG, "Failed to set up completed climb for user:" + mainUser.getUserName(), t);
+
+                        }
+
+                    });
                 }
+                else {
+                    final Call<Boolean> removeCompletedCall = ApiManager.getClamberService().removeCompleted(mainUser.getUserName(), oneClimb.getClimbId());
+                    removeCompletedCall.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.body()) {
+                                Log.d(TAG, "Successfully removed completed climb for user: " + mainUser.getUserName());
+                            } else {
+                                Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName());
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            Log.d(TAG, "Failed to delete completed climb for user: " + mainUser.getUserName(), t);
+
+                        }
+                    });
+                }
+                oneClimb.setCompleted(!oneClimb.isCompleted());
             }
         });
     }
 
+    /**
+     * @return - returns the size of the list of climbs.
+     */
     @Override
     public int getItemCount() {
         return climbs.size();
     }
 
+
+    /**
+     * ViewHolder class for the Climb Row.
+     */
     public static class ClimbsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.climb_row_comments_button)
@@ -128,6 +223,7 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
             ButterKnife.bind(this, itemView);
 
         }
+
     }
 
 
