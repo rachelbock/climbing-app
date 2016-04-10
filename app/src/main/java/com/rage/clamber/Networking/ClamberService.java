@@ -1,6 +1,7 @@
-package com.rage.clamber.AsyncTasks;
+package com.rage.clamber.Networking;
 
-import com.rage.clamber.AsyncTasks.Requests.UserClimbDataRequest;
+import com.rage.clamber.Networking.Requests.NewUserDataRequest;
+import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.Project;
 import com.rage.clamber.Data.User;
@@ -22,6 +23,9 @@ public interface ClamberService {
 
     @GET("user/{username}")
     public Call<User> getExistingUser(@Path("username") String username);
+
+    @POST("user")
+    public Call<User> addNewUser(@Body NewUserDataRequest request);
 
     @GET("projects/{username}")
     public Call<List<Climb>> getProjectsForUser(@Path("username") String username);

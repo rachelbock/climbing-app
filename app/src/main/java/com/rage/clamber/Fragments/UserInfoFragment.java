@@ -51,7 +51,7 @@ public class UserInfoFragment extends Fragment {
 
     @OnClick(R.id.user_activity_user_info_button)
     public void onClickButtonClicked(Button button) {
-        UserInfoDialogFragment fragment = new UserInfoDialogFragment();
+        NewUserDialogFragment fragment = new NewUserDialogFragment();
         fragment.show(getActivity().getSupportFragmentManager(), "dialog");
     }
 }

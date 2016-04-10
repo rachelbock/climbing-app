@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.WallsPageRecyclerViewAdapter;
-import com.rage.clamber.AsyncTasks.ClamberService;
+import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.R;
@@ -30,8 +30,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Fragment called from WallFragment to display the individual wall sections on the selected
@@ -95,13 +93,8 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(HomePage.CONNECTION_WEB_ADDRESS)
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .build();
 
-            ClamberService clamber = retrofit.create(ClamberService.class);
-            final Call<List<WallSection>> wallSectionCall = clamber.getWallSectionByWall(userName, wallId);
+            final Call<List<WallSection>> wallSectionCall = ApiManager.getClamberService().getWallSectionByWall(userName, wallId);
 
             wallSectionCall.enqueue(new Callback<List<WallSection>>() {
                 @Override

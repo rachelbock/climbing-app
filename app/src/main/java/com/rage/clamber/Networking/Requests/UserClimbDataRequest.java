@@ -1,4 +1,4 @@
-package com.rage.clamber.AsyncTasks.Requests;
+package com.rage.clamber.Networking.Requests;
 
 /**
  * Class to hold the user name and climb id for project and completed climb server requests.
