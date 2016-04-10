@@ -43,18 +43,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     *Submit buttons launch the Home Page activity.
+     * Submit buttons launch the Home Page activity.
      */
 
     @OnClick(R.id.login_activity_new_user_button)
-    public void onNewUserButtonClicked (Button button) {
+    public void onNewUserButtonClicked(Button button) {
         NewUserDialogFragment fragment = new NewUserDialogFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
 
     }
 
     @OnClick(R.id.login_activity_existing_user_button)
-    public void onExistingUserButtonClicked (Button button) {
+    public void onExistingUserButtonClicked(Button button) {
         ExistingUserLoginFragment fragment = new ExistingUserLoginFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
 
@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
      * call to the server to determine if the username exists in the database. If it does, the user
      * is logged into the application and brought to the home page. The User is stored in the Home
      * Page class in order to pull up other data related to that User in various fragments.
+     *
      * @param user - username that has been entered in dialog fragment.
      */
 
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Log.d(TAG,"FAILURE: ",t);
+                        Log.d(TAG, "FAILURE: ", t);
                         Toast.makeText(LoginActivity.this, R.string.login_unsuccessful, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
      * and this method is called. This method uses the NewUserAsyncTask to make a network call on
      * the user. It checks to make sure the user does not exist and then posts the user to the
      * database.
+     *
      * @param user - User object passed back from the NewUserDialogFragment
      */
     public void newUserPositiveClick(User user) {
@@ -130,25 +132,25 @@ public class LoginActivity extends AppCompatActivity {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            if (networkInfo != null && networkInfo.isConnected()) {
-                final Call<User> newUserCall = ApiManager.getClamberService().addNewUser(request);
-                newUserCall.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (response.code() == 200) {
-                            newUser = response.body();
-                            Toast.makeText(LoginActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, HomePage.class);
-                            intent.putExtra(ARG_USER, newUser);
-                            startActivity(intent);
-                        }
-                        else if (response.code() == 400){
-                            Toast.makeText(LoginActivity.this, "This username already exists. Create a new username or select 'Existing User'.", Toast.LENGTH_SHORT).show();
-                        }
+        if (networkInfo != null && networkInfo.isConnected()) {
+            final Call<User> newUserCall = ApiManager.getClamberService().addNewUser(request);
+            newUserCall.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.code() == 200) {
+                        newUser = response.body();
+                        Toast.makeText(LoginActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                        intent.putExtra(ARG_USER, newUser);
+                        startActivity(intent);
+                    } else if (response.code() == 400) {
+                        Toast.makeText(LoginActivity.this, "This username already exists. Create a new username or select 'Existing User'.", Toast.LENGTH_SHORT).show();
                     }
+                }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
+                    Log.d(TAG, "Failed to create new user", t);
 
                 }
             });

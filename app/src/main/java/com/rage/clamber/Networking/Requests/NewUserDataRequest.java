@@ -1,7 +1,7 @@
 package com.rage.clamber.Networking.Requests;
 
 /**
- * Created by rage on 4/10/16.
+ * Class to hold user data to send with network request to set up a new user.
  */
 public class NewUserDataRequest {
 

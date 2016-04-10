@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
- * Created by rage on 4/10/16.
+ * Singleton class to initialize Retrofit.
  */
 public class ApiManager {
 
