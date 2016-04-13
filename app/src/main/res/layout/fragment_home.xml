@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="@string/the_circuit_gym_text"
-        android:textSize="18sp"
+        android:textSize="@dimen/page_title_text"
         android:textStyle="bold"
         />
 

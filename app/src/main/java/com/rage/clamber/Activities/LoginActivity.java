@@ -88,15 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                         User user = response.body();
                         if (response.code() == 200) {
                             String login = response.body().getUserName();
-                            if (userName.equals(login)) {
-                                Toast.makeText(LoginActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, HomePage.class);
-                                intent.putExtra(ARG_USER, user);
-                                startActivity(intent);
-                            } else {
-                                //TODO: Figure out how to make this hit. Code 404?
-                                Toast.makeText(LoginActivity.this, R.string.invalid_username, Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(LoginActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                            intent.putExtra(ARG_USER, user);
+                            startActivity(intent);
+                        } else if (response.code() == 404) {
+                            Toast.makeText(LoginActivity.this, R.string.invalid_username, Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(LoginActivity.this, R.string.login_unsuccessful, Toast.LENGTH_SHORT).show();
                         }

@@ -17,9 +17,9 @@
     <string name="ok_button">OK</string>
     <string name="climb_row_grade">Grade:</string>
     <string name="climb_row_style">Style:</string>
-    <string name="climb_row_project">Project?</string>
-    <string name="climb_row_completed">Completed?</string>
-    <string name="climb_row_route_color">Route Color:</string>
+    <string name="climb_row_project">Project</string>
+    <string name="climb_row_completed">Completed</string>
+    <string name="climb_row_route_color">Color:</string>
     <string name="title_activity_wall_sections">WallSectionsActivity</string>
     <string name="climb_row_comments">Comments</string>
     <string name="recommendations">Recommendations</string>
@@ -43,4 +43,6 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="connection_failure">Connection Failure</string>
     <string name="success">Success</string>
+    <string name="what_are_other_climbers_saying">What Are Other Climbers Saying?</string>
+    <string name="enter_comment_ere">Enter Comment Here</string>
 </resources>

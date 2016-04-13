@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
@@ -38,6 +39,8 @@ public class ProjectsFragment extends Fragment {
     public static final String TAG = ProjectsFragment.class.getSimpleName();
     protected User mainUser;
     protected List<Climb> climbArrayList;
+    protected int layoutId;
+    protected ClimbsRecyclerViewAdapter adapter;
 
     @Bind(R.id.projects_fragment_recycler_view)
     RecyclerView recyclerView;
@@ -72,10 +75,13 @@ public class ProjectsFragment extends Fragment {
         climbArrayList = new ArrayList<>();
 
         getProjectsforUser(mainUser.getUserName());
+
+        layoutId = R.id.home_page_frame_layout;
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new ClimbsRecyclerViewAdapter(climbArrayList, mainUser, getActivity(), layoutId);
+        recyclerView.setAdapter(adapter);
 
-
-        Log.d(TAG, mainUser.getUserName());
 
         return rootView;
     }
@@ -102,17 +108,13 @@ public class ProjectsFragment extends Fragment {
                 public void onResponse(Call<List<Climb>> call, Response<List<Climb>> response) {
                     if (response.code() == 200) {
                         List<Climb> climbs = response.body();
+                        climbArrayList.addAll(climbs);
 
-                        for (int i = 0; i < climbs.size(); i++) {
-                            climbArrayList.add(climbs.get(i));
-                        }
                     } else {
                         Log.d(TAG, "Non 200 response code returned - check server");
                     }
 
-                    ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(climbArrayList, mainUser);
-                    recyclerView.setAdapter(adapter);
-
+                    adapter.notifyDataSetChanged();
 
                 }
 
@@ -122,6 +124,9 @@ public class ProjectsFragment extends Fragment {
                 }
             });
 
+        }
+        else {
+            Toast.makeText (getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,9 +16,9 @@ import android.view.ViewGroup;
 
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.WallsPageRecyclerViewAdapter;
-import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.Data.WallSection;
+import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.R;
 
 import java.util.ArrayList;
@@ -40,9 +39,9 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
     public static final String TAG = WallSectionFragment.class.getSimpleName();
     public static final String ARG_WALL_SECTION = "Wall Section Id";
     protected User mainUser;
-    //TODO: Make List instead of ArrayList
     protected List<WallSection> wallSections;
     protected int wall;
+    protected WallsPageRecyclerViewAdapter adapter;
 
 
     @Bind(R.id.walls_page_grid_recycler_view)
@@ -77,7 +76,10 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
         mainUser = getArguments().getParcelable(HomePage.ARG_USER);
         wall = getArguments().getInt(WallsFragment.ARG_WALL_ID);
         getWallSectionsByWall(mainUser.getUserName(), wall);
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this);
+        recyclerView.setAdapter(adapter);
 
 
         return rootView;
@@ -103,14 +105,13 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
                     if (response.code() == 200){
                      List<WallSection> wallSectionsArrayList = response.body();
                             wallSections.addAll(wallSectionsArrayList);
+                            adapter.notifyDataSetChanged();
                     }
                     else {
                         Log.d(TAG, "Non 200 response received - check server");
                     }
 
-                    WallsPageRecyclerViewAdapter adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
                 }
 

@@ -1,0 +1,57 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context="com.rage.clamber.Fragments.CommentsFragment">
+
+    <TextView
+        android:id="@+id/comments_fragment_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/what_are_other_climbers_saying"
+        android:textSize="@dimen/page_title_text"
+        android:layout_centerHorizontal="true"
+        />
+   <Button
+       android:id="@+id/comments_fragment_add_comment_button"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Add Comment"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentEnd="true"
+
+       />
+    <EditText
+        android:id="@+id/comments_fragment_comments_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/comments_fragment_add_comment_button"
+        android:hint="@string/enter_comment_ere"
+        />
+
+    <TextView
+        android:id="@+id/comments_fragment_no_comments_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="There are no comments for this climb yet. \n Be the first to add a comment!"
+        android:layout_centerInParent="true"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comments_fragment_recycler_view"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/comments_fragment_title_text"
+        android:layout_above="@id/comments_fragment_add_comment_button"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

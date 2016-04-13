@@ -1,5 +1,7 @@
 package com.rage.clamber.Networking;
 
+import com.rage.clamber.Data.Comment;
+import com.rage.clamber.Networking.Requests.NewCommentRequest;
 import com.rage.clamber.Networking.Requests.NewUserDataRequest;
 import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.Data.Climb;
@@ -48,8 +50,13 @@ public interface ClamberService {
     @DELETE("completed/{username}/climbs/{climb_id}")
     Call<Boolean> removeCompleted(@Path("username") String username, @Path("climb_id") int climb_id);
 
+    @GET("user/{username}/recommendations")
+    Call<List<Climb>> getRecommendations(@Path("username") String username);
 
+    @GET("climbs/{climb_id}/comments")
+    Call<List<Comment>> getComments(@Path("climb_id") int climb_id);
 
-
+    @POST("climbs/{climb_id}/comments")
+    Call<Boolean> addComment(@Path("climb_id") int climb_id, @Body NewCommentRequest request);
 
 }

@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
-import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.User;
+import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.R;
 
 import java.util.ArrayList;
@@ -40,6 +40,8 @@ public class ClimbsFragment extends Fragment {
     protected List<Climb> climbArrayList;
     protected int wallSectionIdNum;
     protected int wallIdNum;
+    protected int layoutId;
+    protected ClimbsRecyclerViewAdapter adapter;
 
     @Bind(R.id.climbs_fragment_recycler_view)
     RecyclerView recyclerView;
@@ -78,7 +80,11 @@ public class ClimbsFragment extends Fragment {
         wallSectionIdNum = getArguments().getInt(WallSectionFragment.ARG_WALL_SECTION);
         wallIdNum = getArguments().getInt(WallsFragment.ARG_WALL_ID);
         getClimbsByWallSection(mainUser.getUserName(), wallSectionIdNum);
+        layoutId = R.id.home_page_frame_layout;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new ClimbsRecyclerViewAdapter(climbArrayList, mainUser, getActivity(), layoutId);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return rootView;
     }
@@ -100,17 +106,13 @@ public class ClimbsFragment extends Fragment {
                 public void onResponse(Call<List<Climb>> call, Response<List<Climb>> response) {
                     if (response.code() == 200) {
                         List<Climb> climbs = response.body();
-                        for (int i = 0; i < climbs.size(); i++) {
-                            climbArrayList.add(climbs.get(i));
-                        }
+                        climbArrayList.addAll(climbs);
 
-                        ClimbsRecyclerViewAdapter adapter = new ClimbsRecyclerViewAdapter(climbArrayList, mainUser);
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setItemAnimator(new DefaultItemAnimator());
                     } else {
                         Log.d(TAG, "Non 200 response code returned - check server");
                     }
 
+                    adapter.notifyDataSetChanged();
 
                 }
 
