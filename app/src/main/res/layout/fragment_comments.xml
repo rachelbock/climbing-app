@@ -20,17 +20,10 @@
        android:layout_height="wrap_content"
        android:text="Add Comment"
        android:layout_alignParentBottom="true"
-       android:layout_alignParentEnd="true"
+       android:layout_centerHorizontal="true"
 
        />
-    <EditText
-        android:id="@+id/comments_fragment_comments_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@id/comments_fragment_add_comment_button"
-        android:hint="@string/enter_comment_ere"
-        />
+
 
     <TextView
         android:id="@+id/comments_fragment_no_comments_text"

@@ -19,6 +19,7 @@ import com.rage.clamber.Adapters.ClimbsRecyclerViewAdapter;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.Networking.ApiManager;
+import com.rage.clamber.Networking.Requests.NewUserDataRequest;
 import com.rage.clamber.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +52,7 @@ public class UserInfoFragment extends Fragment {
 
     /**
      * Creates the UserInfoFragment - called when the UserInfo Button is clicked.
+     *
      * @param user - logged in user
      * @return - new UserInfoFragment
      */
@@ -71,12 +74,8 @@ public class UserInfoFragment extends Fragment {
 
         climbList = new ArrayList<>();
 
-        getRecommendationsForUser(mainUser.getUserName());
-
         layoutId = R.id.home_page_frame_layout;
-
-        Log.d(TAG, mainUser.getUserName());
-
+        getCompletedClimbsForUser(mainUser.getUserName());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ClimbsRecyclerViewAdapter(climbList, mainUser, getActivity(), layoutId);
@@ -86,20 +85,23 @@ public class UserInfoFragment extends Fragment {
     }
 
 
-    public void getRecommendationsForUser(String username){
+    /**
+     * Method to get all of the climbs that have been marked as completed by the user.
+     *
+     * @param username - username for the query.
+     */
+    public void getCompletedClimbsForUser(String username) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo !=null && networkInfo.isConnected()){
-
-            Call<List<Climb>> recommendationsCall = ApiManager.getClamberService().getRecommendations(username);
-            recommendationsCall.enqueue(new Callback<List<Climb>>() {
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Call<List<Climb>> completedCall = ApiManager.getClamberService().getCompletedForUser(username);
+            completedCall.enqueue(new Callback<List<Climb>>() {
                 @Override
                 public void onResponse(Call<List<Climb>> call, Response<List<Climb>> response) {
-                    if (response.code() == 200){
+                    if (response.code() == 200) {
                         List<Climb> climbs = response.body();
                         climbList.addAll(climbs);
-                    }
-                    else{
+                    } else {
                         Log.d(TAG, "Non 200 response code returned - check server");
                     }
                     adapter.notifyDataSetChanged();
@@ -107,15 +109,56 @@ public class UserInfoFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Climb>> call, Throwable t) {
-                    Log.d(TAG, "Failure when attempting to return recommendations", t);
-
+                    Log.d(TAG, "Failure when attempting to return projects", t);
                 }
             });
+        } else {
+            Toast.makeText(getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
 
+        }
+    }
+
+    /**
+     * OnClick method to launch the update user dialog fragment.
+     */
+    @OnClick(R.id.user_info_fragment_about_me_button)
+    public void onUpdateInfoButtonClicked(){
+        UpdateUserDialogFragment dialogFragment = UpdateUserDialogFragment.newInstance(mainUser);
+        dialogFragment.setTargetFragment(this, 0);
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
+
+    }
+
+    /**
+     * Method called from UpdateUserDialogFragment to send a post to update the existing user info.
+     * @param user
+     */
+    public void onUserUpdate(User user) {
+        NewUserDataRequest request = new NewUserDataRequest();
+        request.setUsername(user.getUserName());
+        request.setHeight(user.getHeight());
+        request.setSkill(user.getSkillLevel());
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Call<User> updateUserCall = ApiManager.getClamberService().updateExistingUser(user.getUserName(), request);
+            updateUserCall.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Log.d(TAG, "successfully updated user");
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.d(TAG, "failed to update user", t);
+                }
+            });
         }
         else {
             Toast.makeText(getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
     }
-
 }
+
+

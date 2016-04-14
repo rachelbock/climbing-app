@@ -7,7 +7,7 @@ public class UserClimbDataRequest {
 
     protected String username;
     protected int climbId;
-
+    protected long date;
 
     public String getUsername() {
         return username;
@@ -23,5 +23,13 @@ public class UserClimbDataRequest {
 
     public void setClimbId(int climbId) {
         this.climbId = climbId;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }

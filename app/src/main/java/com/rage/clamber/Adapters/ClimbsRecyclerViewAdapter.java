@@ -21,6 +21,9 @@ import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.R;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -86,6 +89,8 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
                 UserClimbDataRequest request = new UserClimbDataRequest();
                 request.setClimbId(oneClimb.getClimbId());
                 request.setUsername(mainUser.getUserName());
+                DateTime now = DateTime.now(DateTimeZone.UTC);
+                request.setDate(now.getMillis());
 
                 if (!oneClimb.isProject()) {
 
@@ -136,6 +141,8 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
                 UserClimbDataRequest request = new UserClimbDataRequest();
                 request.setClimbId(oneClimb.getClimbId());
                 request.setUsername(mainUser.getUserName());
+                DateTime now = DateTime.now(DateTimeZone.UTC);
+                request.setDate(now.getMillis());
 
                 if (!oneClimb.isCompleted()){
 

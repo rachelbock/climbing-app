@@ -53,7 +53,7 @@ public class NewUserDialogFragment extends DialogFragment{
         ButterKnife.bind(this, rootView);
 
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(rootView)
-                .setTitle("User Information:")
+                .setTitle(getString(R.string.user_informaiton))
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

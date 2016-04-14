@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +24,11 @@ import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Networking.Requests.NewCommentRequest;
 import com.rage.clamber.R;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,8 +50,6 @@ public class CommentsFragment extends Fragment {
 
     @Bind(R.id.comments_fragment_recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.comments_fragment_comments_edit_text)
-    EditText commentsText;
     @Bind(R.id.comments_fragment_no_comments_text)
     TextView noCommentsText;
 
@@ -137,40 +135,53 @@ public class CommentsFragment extends Fragment {
     @OnClick(R.id.comments_fragment_add_comment_button)
     public void onAddCommentButtonClicked() {
 
-        if (commentsText.getText().toString().trim().length() > 0) {
+        AddCommentDialogFragment dialogFragment = new AddCommentDialogFragment();
+        dialogFragment.setTargetFragment(this, 0);
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
 
-            String comment = commentsText.getText().toString();
+    }
 
-            NewCommentRequest request = new NewCommentRequest();
-            request.setClimbId(climbId);
-            request.setUsername(mainUser.getUserName());
-            request.setCommmentText(comment);
-            GregorianCalendar gregorianCalendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
-            request.setDateText(gregorianCalendar.getTimeInMillis());
+    /**
+     * When comment is added from the AddCommentDialogFragment this method is called to send the
+     * post request to the server. After the comment has been posted it also adds the Comment
+     * directly to the CommentsList and updates the adapter so the comment displays immediately.
+     * @param comment - the comment string from the dialog fragment
+     */
+    public void onCommentAdded(String comment) {
 
-            final Call<Boolean> addCommentCall = ApiManager.getClamberService().addComment(climbId, request);
-            addCommentCall.enqueue(new Callback<Boolean>() {
-                @Override
-                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+        NewCommentRequest request = new NewCommentRequest();
+        request.setClimbId(climbId);
+        request.setUsername(mainUser.getUserName());
+        request.setCommmentText(comment);
 
-                    if (response.body()) {
-                        Log.d(TAG, "Successfully Added Comment");
-                    } else {
-                        Log.d(TAG, "Unable to add comment");
-                    }
+        DateTime now = DateTime.now(DateTimeZone.UTC);
+        request.setDateText(now.getMillis());
+
+        final Call<Boolean> addCommentCall = ApiManager.getClamberService().addComment(climbId, request);
+        addCommentCall.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                if (response.body()) {
+                    Log.d(TAG, "Successfully Added Comment");
+                } else {
+                    Log.d(TAG, "Unable to add comment");
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.d(TAG, "Unable to add comment", t);
-                }
-            });
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.d(TAG, "Unable to add comment", t);
+            }
+        });
+        Comment newComment = new Comment();
+        newComment.setClimbId(climbId);
+        newComment.setComment(comment);
+        newComment.setDate(request.getDateText());
+        newComment.setUserName(mainUser.getUserName());
 
-            commentsText.setHint(R.string.enter_comment_ere);
-        }
-        else{
-            Toast.makeText(getContext(), "Please enter a comment", Toast.LENGTH_SHORT).show();
-        }
-
+        comments.add(0, newComment);
+        adapter.notifyDataSetChanged();
+        noCommentsText.setVisibility(View.INVISIBLE);
     }
 }

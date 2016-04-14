@@ -6,7 +6,12 @@
     android:orientation="vertical"
     tools:context="com.rage.clamber.Fragments.ProjectsFragment"
     >
-
+<Button
+    android:id="@+id/projects_fragment_recommendations_fragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Recommendations"
+    />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

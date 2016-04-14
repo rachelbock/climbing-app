@@ -11,8 +11,10 @@ import com.rage.clamber.Data.Comment;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import net.danlew.android.joda.DateUtils;
+
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -45,15 +47,11 @@ public class CommentsRecyclerViewAdapter extends RecyclerView.Adapter<CommentsRe
     public void onBindViewHolder(CommentsViewHolder holder, int position) {
         Comment oneComment = comments.get(position);
         holder.commentsTextView.setText(oneComment.getComment());
-        long raw = oneComment.getDate();
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTimeInMillis(raw);
 
-        String date = "";
-        date += gregorianCalendar.get(Calendar.YEAR);
-        date += " " + gregorianCalendar.get(Calendar.HOUR);
-        date += ":" + gregorianCalendar.get(Calendar.MINUTE);
-//        String date = DateUtils.formatDateTime(context, raw, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR);
+        long rawDate = oneComment.getDate();
+        DateTime dateTime = new DateTime(rawDate);
+        String date = DateUtils.formatDateTime(context, dateTime, DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
         holder.dateTextView.setText(date);
 
         holder.usernameTextView.setText(oneComment.getUserName());
