@@ -8,7 +8,7 @@ public class NewCommentRequest {
     protected int climbId;
     protected String commmentText;
 
-    //Date is stored as a milliseconds in the database. When displayed, it is converted to a
+    //Date is stored as a milliseconds (UTC) in the database. When displayed, it is converted to a
     //DateTime object using the Joda library.
     protected long date;
 

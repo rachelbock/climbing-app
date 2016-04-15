@@ -48,7 +48,7 @@ public class CommentsRecyclerViewAdapter extends RecyclerView.Adapter<CommentsRe
         Comment oneComment = comments.get(position);
         holder.commentsTextView.setText(oneComment.getComment());
 
-        //Gets the date in milliseconds and creates a DateTime object from it. Then uses DateUtils
+        //Gets the date in milliseconds (UTC) and creates a DateTime object from it. Then uses DateUtils
         //to format the DateTime object for display.
         long rawDate = oneComment.getDate();
         DateTime dateTime = new DateTime(rawDate);
