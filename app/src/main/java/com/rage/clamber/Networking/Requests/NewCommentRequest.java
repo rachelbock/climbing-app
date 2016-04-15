@@ -7,7 +7,10 @@ public class NewCommentRequest {
     protected String username;
     protected int climbId;
     protected String commmentText;
-    protected long dateText;
+
+    //Date is stored as a milliseconds in the database. When displayed, it is converted to a
+    //DateTime object using the Joda library.
+    protected long date;
 
     public String getUsername() {
         return username;
@@ -33,11 +36,11 @@ public class NewCommentRequest {
         this.commmentText = commmentText;
     }
 
-    public long getDateText() {
-        return dateText;
+    public long getDate() {
+        return date;
     }
 
-    public void setDateText(long dateText) {
-        this.dateText = dateText;
+    public void setDate(long date) {
+        this.date = date;
     }
 }

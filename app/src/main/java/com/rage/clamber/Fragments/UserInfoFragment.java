@@ -124,6 +124,7 @@ public class UserInfoFragment extends Fragment {
     @OnClick(R.id.user_info_fragment_about_me_button)
     public void onUpdateInfoButtonClicked(){
         UpdateUserDialogFragment dialogFragment = UpdateUserDialogFragment.newInstance(mainUser);
+        //Sets this fragment as the target fragment for the dialogfragment
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
 

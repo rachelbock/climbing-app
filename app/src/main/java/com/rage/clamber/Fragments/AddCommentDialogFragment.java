@@ -41,6 +41,7 @@ public class AddCommentDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String commentText = addCommentEditText.getText().toString().trim();
                         if (commentText.length()>0){
+                            //Gets the Target Fragment and calls onCommentAdded with the comment.
                             ((CommentsFragment)getTargetFragment()).onCommentAdded(commentText);
                         }
                         else{

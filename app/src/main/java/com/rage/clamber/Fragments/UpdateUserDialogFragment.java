@@ -63,6 +63,7 @@ public class UpdateUserDialogFragment extends DialogFragment {
                         int userHeight = ((userHeightFeet * 12) + userHeightInches);
                         int userSkill = Integer.parseInt(skillEditText.getText().toString());
                         User user = new User(mainUser.getUserName(), userHeight, userSkill);
+                        //gets the target fragment and calls onUserUpdate with the user.
                         ((UserInfoFragment)getTargetFragment()).onUserUpdate(user);
                     }
                 })

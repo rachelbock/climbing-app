@@ -136,6 +136,7 @@ public class CommentsFragment extends Fragment {
     public void onAddCommentButtonClicked() {
 
         AddCommentDialogFragment dialogFragment = new AddCommentDialogFragment();
+        //Set Target Fragment creates a callback to this fragment from the DialogFragment
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
 
@@ -155,7 +156,7 @@ public class CommentsFragment extends Fragment {
         request.setCommmentText(comment);
 
         DateTime now = DateTime.now(DateTimeZone.UTC);
-        request.setDateText(now.getMillis());
+        request.setDate(now.getMillis());
 
         final Call<Boolean> addCommentCall = ApiManager.getClamberService().addComment(climbId, request);
         addCommentCall.enqueue(new Callback<Boolean>() {
@@ -177,7 +178,7 @@ public class CommentsFragment extends Fragment {
         Comment newComment = new Comment();
         newComment.setClimbId(climbId);
         newComment.setComment(comment);
-        newComment.setDate(request.getDateText());
+        newComment.setDate(request.getDate());
         newComment.setUserName(mainUser.getUserName());
 
         comments.add(0, newComment);
