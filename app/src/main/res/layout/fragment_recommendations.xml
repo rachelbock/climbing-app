@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.rage.clamber.Fragments.RecommendationsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/greyBackground"
+        >
+        <TextView
+            android:id="@+id/recommendations_fragment_recommendations_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/recommendations"
+            android:textSize="@dimen/page_title_text"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recommendations_fragment_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,5 +1,8 @@
 package com.rage.clamber.Adapters;
 
+import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +13,16 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rage.clamber.Networking.ApiManager;
-import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.Project;
 import com.rage.clamber.Data.User;
-import com.rage.clamber.Fragments.ProjectsFragment;
+import com.rage.clamber.Fragments.CommentsFragment;
+import com.rage.clamber.Networking.ApiManager;
+import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.R;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.List;
 
@@ -33,17 +39,22 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
 
     public static final String TAG = ClimbsRecyclerViewAdapter.class.getSimpleName();
+    public static final String ARG_CLIMB = "Climb ID";
     protected List<Climb> climbs;
     protected User mainUser;
+    protected FragmentActivity fragmentActivity;
+    protected int layoutId;
 
     /**
      * Constructor for adapter
      * @param climbArrayList - list of climbs provided by the class that calls the adapter
      * @param user - the logged in user
      */
-    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList, User user) {
+    public ClimbsRecyclerViewAdapter(List<Climb> climbArrayList, User user, FragmentActivity fragActivity, int id) {
         climbs = climbArrayList;
         mainUser = user;
+        fragmentActivity = fragActivity;
+        layoutId = id;
     }
 
 
@@ -60,12 +71,11 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     @Override
     public void onBindViewHolder(final ClimbsViewHolder holder, int position) {
         Climb climb = climbs.get(position);
-        Log.d(ProjectsFragment.TAG, "Climb id: " + climb.getClimbId());
         holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
         holder.projectCheckBox.setChecked(climb.isProject());
         holder.completedCheckBox.setChecked(climb.isCompleted());
         holder.styleDataTextView.setText(climb.getType());
-        holder.routeColorTextView.setText(climb.getTape_color());
+        holder.routeColorImage.setBackgroundColor(Color.parseColor(climb.getTapeColor()));
 
         //OnClickListener for the ProjectCheckbox. When the checkbox is checked, a network call is made
         //to the Clamber Server to add that Project for the user. If the checkbox is unchecked, a call
@@ -79,6 +89,8 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
                 UserClimbDataRequest request = new UserClimbDataRequest();
                 request.setClimbId(oneClimb.getClimbId());
                 request.setUsername(mainUser.getUserName());
+                DateTime now = DateTime.now(DateTimeZone.UTC);
+                request.setDate(now.getMillis());
 
                 if (!oneClimb.isProject()) {
 
@@ -129,6 +141,8 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
                 UserClimbDataRequest request = new UserClimbDataRequest();
                 request.setClimbId(oneClimb.getClimbId());
                 request.setUsername(mainUser.getUserName());
+                DateTime now = DateTime.now(DateTimeZone.UTC);
+                request.setDate(now.getMillis());
 
                 if (!oneClimb.isCompleted()){
 
@@ -170,6 +184,19 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
                 oneClimb.setCompleted(!oneClimb.isCompleted());
             }
         });
+
+            //OnClickListener for the comments button. Launches comments tied to the climb in the
+            //comments fragment.
+            holder.commentsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Climb oneClimb = climbs.get(holder.getAdapterPosition());
+                    FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(layoutId, CommentsFragment.newInstance(mainUser, oneClimb.getClimbId()));
+                    transaction.commit();
+                }
+            });
+
     }
 
     /**
@@ -191,28 +218,18 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
         @Bind(R.id.climb_row_completed_checkbox)
         CheckBox completedCheckBox;
-        @Bind(R.id.climb_row_completed_text)
-        TextView completedTextView;
 
         @Bind(R.id.climb_row_grade_data)
         TextView gradeDataTextView;
-        @Bind(R.id.climb_row_grade_text)
-        TextView gradeTextView;
 
-        @Bind(R.id.climb_row_route_color_text)
-        TextView routeColorTextView;
         @Bind(R.id.climb_row_route_color_image)
         ImageView routeColorImage;
 
-        @Bind(R.id.climb_row_project_text)
-        TextView projectTextView;
         @Bind(R.id.climb_row_project_checkbox)
         CheckBox projectCheckBox;
 
         @Bind(R.id.climb_row_style_data)
         TextView styleDataTextView;
-        @Bind(R.id.climb_row_style_text)
-        TextView styleTextView;
 
         View fullView;
 

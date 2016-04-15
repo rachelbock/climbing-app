@@ -1,12 +1,15 @@
 package com.rage.clamber.Networking.Requests;
 
 /**
- * Class to hold the user name and climb id for project and completed climb server requests.
+ * Comment body for server posts
  */
-public class UserClimbDataRequest {
-
+public class NewCommentRequest {
     protected String username;
     protected int climbId;
+    protected String commmentText;
+
+    //Date is stored as a milliseconds (UTC) in the database. When displayed, it is converted to a
+    //DateTime object using the Joda library.
     protected long date;
 
     public String getUsername() {
@@ -23,6 +26,14 @@ public class UserClimbDataRequest {
 
     public void setClimbId(int climbId) {
         this.climbId = climbId;
+    }
+
+    public String getCommmentText() {
+        return commmentText;
+    }
+
+    public void setCommmentText(String commmentText) {
+        this.commmentText = commmentText;
     }
 
     public long getDate() {

@@ -11,7 +11,7 @@ public class Climb {
     private int climbId;
     private int gymRating;
     private int userRating;
-    private String tape_color;
+    private String tapeColor;
     private int wallId;
     private boolean isProject;
     private boolean isCompleted;
@@ -41,12 +41,12 @@ public class Climb {
         this.userRating = userRating;
     }
 
-    public String getTape_color() {
-        return tape_color;
+    public String getTapeColor() {
+        return tapeColor;
     }
 
-    public void setTape_color(String tape_color) {
-        this.tape_color = tape_color;
+    public void setTapeColor(String tapeColor) {
+        this.tapeColor = tapeColor;
     }
 
     public int getWallId() {

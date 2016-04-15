@@ -8,4 +8,6 @@
     <color name="greyBackground">#dddfdd</color>
     <color name="blueBackground">#406281</color>
 
+    <color name="greyCardViewBackground">#e6e9ec</color>
+
 </resources>
