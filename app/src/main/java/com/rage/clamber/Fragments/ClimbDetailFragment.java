@@ -329,6 +329,24 @@ public class ClimbDetailFragment extends Fragment {
         });
     }
 
+    /**
+     * When an arrow button is clicked - adds the rating to the database with the climb id, user name
+     * and existing rating.
+     * @param arrowType - takes in either +1 or -1
+     */
+    public void onArrowClicked(int arrowType){
+        UserRatingRequest request = new UserRatingRequest();
+        request.setUsername(mainUser.getUserName());
+        request.setClimbId(climb.getClimbId());
+        if (yourRatingInt != NO_DATA ){
+            yourRatingInt = yourRatingInt + arrowType;
+        }
+        else {
+            yourRatingInt = climb.getGymRating() + arrowType;
+        }
+        request.setRating(yourRatingInt);
+        addRatingForUser(request);
+    }
 
     /**
      * When the Up Arrow Button is selected, the add rating method is called and given the
@@ -336,17 +354,7 @@ public class ClimbDetailFragment extends Fragment {
      */
     @OnClick(R.id.comments_fragment_up_arrow)
     public void onUpArrowClicked(){
-        UserRatingRequest request = new UserRatingRequest();
-        request.setUsername(mainUser.getUserName());
-        request.setClimbId(climb.getClimbId());
-        if (yourRatingInt != NO_DATA ){
-            yourRatingInt = yourRatingInt +1;
-        }
-        else {
-            yourRatingInt = climb.getGymRating() +1;
-        }
-        request.setRating(yourRatingInt);
-        addRatingForUser(request);
+        onArrowClicked(1);
 
     }
 
@@ -356,18 +364,6 @@ public class ClimbDetailFragment extends Fragment {
      */
     @OnClick(R.id.comments_fragment_down_arrow)
     public void onDownArrowClicked(){
-        UserRatingRequest request = new UserRatingRequest();
-        request.setUsername(mainUser.getUserName());
-        request.setClimbId(climb.getClimbId());
-        if (yourRatingInt != NO_DATA) {
-            yourRatingInt = yourRatingInt -1;
-        }
-        else {
-            yourRatingInt = climb.getGymRating() -1;
-
-        }
-        request.setRating(yourRatingInt);
-        addRatingForUser(request);
-
+       onArrowClicked(-1);
     }
 }
