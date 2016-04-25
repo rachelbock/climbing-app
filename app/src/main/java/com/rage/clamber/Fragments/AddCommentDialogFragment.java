@@ -42,7 +42,7 @@ public class AddCommentDialogFragment extends DialogFragment {
                         String commentText = addCommentEditText.getText().toString().trim();
                         if (commentText.length()>0){
                             //Gets the Target Fragment and calls onCommentAdded with the comment.
-                            ((CommentsFragment)getTargetFragment()).onCommentAdded(commentText);
+                            ((ClimbDetailFragment)getTargetFragment()).onCommentAdded(commentText);
                         }
                         else{
                             Toast.makeText(getContext(), "Enter a comment to have it post.", Toast.LENGTH_SHORT).show();

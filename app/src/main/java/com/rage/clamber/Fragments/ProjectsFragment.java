@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rage.clamber.Activities.HomePage;
@@ -46,6 +47,8 @@ public class ProjectsFragment extends Fragment {
 
     @Bind(R.id.projects_fragment_recycler_view)
     RecyclerView recyclerView;
+    @Bind(R.id.projects_fragment_no_projects_text)
+    TextView noProjectsText;
 
     public ProjectsFragment() {
         // Required empty public constructor
@@ -109,6 +112,9 @@ public class ProjectsFragment extends Fragment {
                     if (response.code() == 200) {
                         List<Climb> climbs = response.body();
                         climbArrayList.addAll(climbs);
+                        if (climbArrayList.isEmpty()){
+                            noProjectsText.setVisibility(View.VISIBLE);
+                        }
 
                     } else {
                         Log.d(TAG, "Non 200 response code returned - check server");

@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onExistingUserButtonClicked(Button button) {
         ExistingUserLoginFragment fragment = new ExistingUserLoginFragment();
         fragment.show(getSupportFragmentManager(), "dialog");
-
     }
 
     /**

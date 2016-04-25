@@ -1,0 +1,142 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".Fragments.ClimbDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/comments_fragment_detail_horizontal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        >
+        <ImageView
+            android:id="@+id/comments_fragment_wall_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            tools:background="@color/blueBackground"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical"
+            />
+        <LinearLayout
+            android:id="@+id/comments_fragment_rating_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            >
+            <TextView
+                android:id="@+id/comments_fragment_gym_rating_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gym_rating_s"
+                android:textSize="@dimen/page_title_text"
+                />
+            <TextView
+                android:id="@+id/comments_fragment_user_rating_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_rating_s"
+                android:textSize="@dimen/page_title_text"
+                android:visibility="invisible"
+                />
+            <TextView
+                android:id="@+id/comments_fragment_your_rating_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_rating_s"
+                android:textSize="@dimen/page_title_text"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            >
+            <ImageButton
+                android:id="@+id/comments_fragment_up_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_upward_black_18dp"
+                android:background="@color/light_grey_background"
+                />
+            <ImageButton
+                android:id="@+id/comments_fragment_down_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_downward_black_18dp"
+                android:background="@color/light_grey_background"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/comments_fragment_project_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_star_rate_black_18dp"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/comments_fragment_completed_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/comments_fragment_project_star"
+        android:src="@drawable/ic_done_black_18dp"
+        android:visibility="invisible"
+        />
+
+
+    <TextView
+        android:id="@+id/comments_fragment_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/what_are_other_climbers_saying"
+        android:textSize="@dimen/page_title_text"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/comments_fragment_detail_horizontal_layout"
+        />
+   <ImageButton
+       android:id="@+id/comments_fragment_add_comment_button"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_comment_white_24dp"
+       android:layout_marginLeft="5dp"
+       android:layout_marginRight="5dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:id="@+id/comments_fragment_no_comments_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_comments_yet_text"
+        android:layout_centerInParent="true"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comments_fragment_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/comments_fragment_title_text"
+        android:layout_above="@id/comments_fragment_add_comment_button"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

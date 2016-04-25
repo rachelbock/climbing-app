@@ -12,6 +12,7 @@ import com.rage.clamber.Fragments.UserInfoFragment;
 import com.rage.clamber.Fragments.WallsFragment;
 import com.rage.clamber.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -23,6 +24,8 @@ public class HomePage extends AppCompatActivity {
 
     public static final String ARG_USER = "main user";
     public User user;
+    @Bind(R.id.action_bar_user_info_button)
+    Button userInfoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,7 @@ public class HomePage extends AppCompatActivity {
         user=getIntent().getParcelableExtra(LoginActivity.ARG_USER);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance(user));
         transaction.commit();
 
     }
@@ -45,7 +48,8 @@ public class HomePage extends AppCompatActivity {
     @OnClick(R.id.action_bar_home_button)
     public void onHomeButtonClicked(Button button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance());
+        transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance(user));
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -67,6 +71,7 @@ public class HomePage extends AppCompatActivity {
 
     @OnClick(R.id.action_bar_user_info_button)
     public void onUserInfoButtonClicked(Button button) {
+//        userInfoButton.setBackgroundColor(Color.parseColor("#0DB910"));
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, UserInfoFragment.newInstance(user));
         transaction.addToBackStack(null);

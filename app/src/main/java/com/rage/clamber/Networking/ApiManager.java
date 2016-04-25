@@ -22,7 +22,9 @@ public class ApiManager {
     public static ClamberService getClamberService(){
         return clamberService;
     }
-
+    public static String getImageUrl(String imageUrlSuffix) {
+        return API_URL + imageUrlSuffix;
+    }
 
 
 }

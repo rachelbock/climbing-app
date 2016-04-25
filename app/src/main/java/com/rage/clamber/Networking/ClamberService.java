@@ -8,6 +8,7 @@ import com.rage.clamber.Data.WallSection;
 import com.rage.clamber.Networking.Requests.NewCommentRequest;
 import com.rage.clamber.Networking.Requests.NewUserDataRequest;
 import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
+import com.rage.clamber.Networking.Requests.UserRatingRequest;
 
 import java.util.List;
 
@@ -65,4 +66,15 @@ public interface ClamberService {
     @POST("climbs/{climb_id}/comments")
     Call<Boolean> addComment(@Path("climb_id") int climb_id, @Body NewCommentRequest request);
 
+    @GET("user/{username}/walls/wall_sections/last_updated")
+    Call<List<WallSection>> getLastUpdatedWalls(@Path("username") String username);
+
+    @GET("ratings/climbs/{climb_id}/user/{username}")
+    Call<Integer> getRatingForClimbByUser(@Path("climb_id") int climbId, @Path("username") String username);
+
+    @GET("ratings/climbs/{climb_id}")
+    Call<Double> getUserAverageRatingForClimb(@Path("climb_id") int climbId);
+
+    @POST("ratings")
+    Call<Integer> addUserRating(@Body UserRatingRequest request);
 }
