@@ -46,4 +46,21 @@
     <string name="what_are_other_climbers_saying">What Are Other Climbers Saying?</string>
     <string name="enter_comment_ere">Enter Comment Here</string>
     <string name="user_informaiton">User Information:</string>
+    <string name="update_my_info">Update</string>
+    <string name="recommendations_text">Recommendations</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="history">History</string>
+    <string name="you_have_not_marked_any_climbs_as_projects_yet_click_on_recommendations_if_you_need_any_suggestions">You have not marked any climbs as projects yet. Click on Recommendations if you need any suggestions.</string>
+    <string name="no_comments_yet_text">There are no comments for this climb yet. \n Be the first to add a comment!</string>
+    <string name="user_name_s">User Name:</string>
+    <string name="skill_level_s">Skill Level:</string>
+    <string name="view_n_history">View History</string>
+    <string name="no_completed_history_yet">Once you have completed a climb, mark it as completed and it will display here.</string>
+    <string name="must_complete_all_fields">Must complete all fields to create user profile</string>
+    <string name="height_text">Height:</string>
+    <string name="new_walls_this_week">New Walls This Week</string>
+    <string name="welcome_to_the_clamber_app">Welcome to the Clamber App!</string>
+    <string name="gym_rating_s">Gym Rating: %s</string>
+    <string name="user_rating_s">User Rating: %s</string>
+    <string name="your_rating_s">Your Rating: %s</string>
 </resources>

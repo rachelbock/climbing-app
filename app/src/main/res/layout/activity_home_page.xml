@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/greyBackground"
     tools:context=".Activities.HomePage">
+
 
 <LinearLayout
     android:id="@+id/home_page_action_bar_linear_layout"
@@ -23,7 +23,7 @@
         android:textSize="12sp"
         android:textColor="@android:color/white"
         style="@android:style/ButtonBar"
-        android:background="@color/clamberMainText"
+        android:background="@color/colorPrimary"
         />
     <Button
         android:id="@+id/action_bar_walls_button"
@@ -34,7 +34,7 @@
         android:textSize="12sp"
         android:textColor="@android:color/white"
         style="@android:style/ButtonBar"
-        android:background="@color/clamberMainText"
+        android:background="@color/colorPrimary"
         />
     <Button
         android:id="@+id/action_bar_projects_button"
@@ -45,7 +45,7 @@
         android:textSize="12sp"
         android:textColor="@android:color/white"
         style="@android:style/ButtonBar"
-        android:background="@color/clamberMainText"
+        android:background="@color/colorPrimary"
         />
     <Button
         android:id="@+id/action_bar_user_info_button"
@@ -56,7 +56,8 @@
         android:textSize="12sp"
         android:textColor="@android:color/white"
         style="@android:style/ButtonBar"
-        android:background="@color/clamberMainText"
+        android:background="@color/colorPrimary"
+
         />
 
 </LinearLayout>

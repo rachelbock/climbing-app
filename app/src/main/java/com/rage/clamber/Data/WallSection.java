@@ -14,6 +14,7 @@ public class WallSection {
     protected int id;
     protected Date dateLastUpdated;
     protected boolean isTopout;
+    protected int mainWallId;
 
     public String getName() {
         return name;
@@ -45,5 +46,13 @@ public class WallSection {
 
     public void setIsTopout(boolean isTopout) {
         this.isTopout = isTopout;
+    }
+
+    public int getMainWallId() {
+        return mainWallId;
+    }
+
+    public void setMainWallId(int mainWallId) {
+        this.mainWallId = mainWallId;
     }
 }

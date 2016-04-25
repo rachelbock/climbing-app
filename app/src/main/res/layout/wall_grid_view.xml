@@ -3,15 +3,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:layout_margin="2dp"
+    >
 
-    <TextView
-        android:id="@+id/wall_grid_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:text="Wall 1"
-        android:textSize="40sp"
-        android:textStyle="bold"
+
+    <ImageView
+        android:id="@+id/wall_grid_image_view"
+        android:layout_width="210dp"
+        android:layout_height="190dp"
+        tools:background="@color/blueBackground"
         />
 
 </LinearLayout>

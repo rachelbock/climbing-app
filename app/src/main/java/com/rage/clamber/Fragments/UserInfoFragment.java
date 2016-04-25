@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rage.clamber.Activities.HomePage;
@@ -45,6 +46,15 @@ public class UserInfoFragment extends Fragment {
 
     @Bind(R.id.user_activity_recycler_view)
     public RecyclerView recyclerView;
+    @Bind(R.id.user_info_fragment_no_history_text)
+    public TextView noHistoryText;
+    @Bind(R.id.user_info_fragment_user_name_text_view)
+    public TextView userNameTextView;
+    @Bind(R.id.user_info_fragment_height_text_view)
+    public TextView heightTextView;
+    @Bind(R.id.user_info_fragment_skill_level_text_view)
+    public TextView skillLevelTextView;
+
 
     public UserInfoFragment() {
         // Required empty public constructor
@@ -71,12 +81,14 @@ public class UserInfoFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         mainUser = getArguments().getParcelable(HomePage.ARG_USER);
-
+        if (mainUser != null) {
+            userNameTextView.setText(mainUser.getUserName());
+            heightTextView.setText(Integer.toString(mainUser.getHeight() / 12) + "' " + Integer.toString(mainUser.getHeight() % 12) + "''");
+            skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
+        }
         climbList = new ArrayList<>();
-
         layoutId = R.id.home_page_frame_layout;
         getCompletedClimbsForUser(mainUser.getUserName());
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ClimbsRecyclerViewAdapter(climbList, mainUser, getActivity(), layoutId);
         recyclerView.setAdapter(adapter);
@@ -101,6 +113,7 @@ public class UserInfoFragment extends Fragment {
                     if (response.code() == 200) {
                         List<Climb> climbs = response.body();
                         climbList.addAll(climbs);
+
                     } else {
                         Log.d(TAG, "Non 200 response code returned - check server");
                     }
@@ -118,6 +131,15 @@ public class UserInfoFragment extends Fragment {
         }
     }
 
+    @OnClick(R.id.user_fragment_history_button)
+    public void onHistoryButtonClicked(){
+        recyclerView.setVisibility(View.VISIBLE);
+        if (climbList.isEmpty()){
+            noHistoryText.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     /**
      * OnClick method to launch the update user dialog fragment.
      */
@@ -127,7 +149,6 @@ public class UserInfoFragment extends Fragment {
         //Sets this fragment as the target fragment for the dialogfragment
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
-
     }
 
     /**
@@ -135,7 +156,7 @@ public class UserInfoFragment extends Fragment {
      * @param user
      */
     public void onUserUpdate(User user) {
-        NewUserDataRequest request = new NewUserDataRequest();
+        final NewUserDataRequest request = new NewUserDataRequest();
         request.setUsername(user.getUserName());
         request.setHeight(user.getHeight());
         request.setSkill(user.getSkillLevel());
@@ -148,6 +169,11 @@ public class UserInfoFragment extends Fragment {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.d(TAG, "successfully updated user");
+                    User updatedUser = response.body();
+                    mainUser.setHeight(updatedUser.getHeight());
+                    mainUser.setSkillLevel(updatedUser.getSkillLevel());
+                    heightTextView.setText(Integer.toString(mainUser.getHeight()/12) + "' " + Integer.toString(mainUser.getHeight()%12) + "''");
+                    skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
                 }
 
                 @Override
@@ -159,6 +185,7 @@ public class UserInfoFragment extends Fragment {
         else {
             Toast.makeText(getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
+
     }
 }
 

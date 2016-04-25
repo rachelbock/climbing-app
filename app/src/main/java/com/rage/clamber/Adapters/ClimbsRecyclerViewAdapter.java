@@ -8,15 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.Project;
 import com.rage.clamber.Data.User;
-import com.rage.clamber.Fragments.CommentsFragment;
+import com.rage.clamber.Fragments.ClimbDetailFragment;
 import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.R;
@@ -39,7 +39,9 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
 
     public static final String TAG = ClimbsRecyclerViewAdapter.class.getSimpleName();
-    public static final String ARG_CLIMB = "Climb ID";
+    public static final String ARG_CLIMB_ID = "Climb ID";
+    public static final String ARG_WALL = "Wall ID";
+    public static final String ARG_CLIMB = "Climb";
     protected List<Climb> climbs;
     protected User mainUser;
     protected FragmentActivity fragmentActivity;
@@ -71,7 +73,13 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     @Override
     public void onBindViewHolder(final ClimbsViewHolder holder, int position) {
         Climb climb = climbs.get(position);
-        holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
+        if (climb.getGymRating() != -1){
+            holder.gradeDataTextView.setText(Integer.toString(climb.getGymRating()));
+        }
+        else {
+            holder.gradeDataTextView.setText("B");
+        }
+//        Picasso.with(fragmentActivity).load(R.drawable.ic_info_white_24dp).fit().centerCrop().into(holder.commentsButton);
         holder.projectCheckBox.setChecked(climb.isProject());
         holder.completedCheckBox.setChecked(climb.isCompleted());
         holder.styleDataTextView.setText(climb.getType());
@@ -185,14 +193,15 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
             }
         });
 
-            //OnClickListener for the comments button. Launches comments tied to the climb in the
-            //comments fragment.
+//            OnClickListener for the comments button. Launches comments tied to the climb in the
+//            comments fragment.
             holder.commentsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Climb oneClimb = climbs.get(holder.getAdapterPosition());
                     FragmentTransaction transaction = fragmentActivity.getSupportFragmentManager().beginTransaction();
-                    transaction.replace(layoutId, CommentsFragment.newInstance(mainUser, oneClimb.getClimbId()));
+                    transaction.replace(layoutId, ClimbDetailFragment.newInstance(mainUser, oneClimb));
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
             });
@@ -214,7 +223,7 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     public static class ClimbsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.climb_row_comments_button)
-        Button commentsButton;
+        ImageButton commentsButton;
 
         @Bind(R.id.climb_row_completed_checkbox)
         CheckBox completedCheckBox;

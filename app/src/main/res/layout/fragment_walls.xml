@@ -6,8 +6,8 @@
     tools:context="com.rage.clamber.Fragments.WallsFragment">
 
 
-        <ImageButton
-            android:id="@+id/wall_page_wall_1_button"
+        <ImageView
+            android:id="@+id/wall_page_wall_1_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -15,8 +15,8 @@
             android:tag="1"
             />
 
-        <ImageButton
-            android:id="@+id/wall_page_wall_2_button"
+        <ImageView
+            android:id="@+id/wall_page_wall_2_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -24,8 +24,8 @@
             android:tag="2"
             />
 
-        <ImageButton
-            android:id="@+id/wall_page_wall_3_button"
+        <ImageView
+            android:id="@+id/wall_page_wall_3_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -33,8 +33,8 @@
             android:tag="3"
             />
 
-        <ImageButton
-            android:id="@+id/wall_page_wall_4_button"
+        <ImageView
+            android:id="@+id/wall_page_wall_4_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

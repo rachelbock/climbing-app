@@ -77,8 +77,8 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
         wall = getArguments().getInt(WallsFragment.ARG_WALL_ID);
         getWallSectionsByWall(mainUser.getUserName(), wall);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        adapter = new WallsPageRecyclerViewAdapter(wallSections, WallSectionFragment.this, getActivity());
         recyclerView.setAdapter(adapter);
 
 

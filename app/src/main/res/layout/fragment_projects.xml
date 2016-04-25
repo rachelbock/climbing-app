@@ -1,31 +1,45 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.rage.clamber.Fragments.ProjectsFragment"
+    android:layout_margin="5dp"
     >
 <Button
     android:id="@+id/projects_fragment_recommendations_fragment"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Recommendations"
+    android:text="@string/recommendations_text"
+    android:textColor="@android:color/white"
+    android:textSize="12dp"
+    android:layout_alignParentEnd="true"
     />
     <TextView
+        android:id="@+id/projects_fragment_projects_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Projects"
         android:textSize="@dimen/page_title_text"
         android:gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         />
-
+    <TextView
+        android:id="@+id/projects_fragment_no_projects_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_have_not_marked_any_climbs_as_projects_yet_click_on_recommendations_if_you_need_any_suggestions"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/projects_fragment_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/projects_fragment_projects_text"
         >
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+
+</RelativeLayout>
