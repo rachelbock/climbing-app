@@ -9,10 +9,10 @@
     >
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/climber_image_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/left_climber_image"
         android:contentDescription="@string/login_climber_image_content_description"
         />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/new_user"
             android:textColor="@android:color/white"
-            android:background="@color/clamberMainText"
+            android:background="@color/colorPrimary"
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
@@ -38,9 +38,9 @@
             android:id="@+id/login_activity_existing_user_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="existing user"
+            android:text="@string/existing_user"
             android:textColor="@android:color/white"
-            android:background="@color/clamberMainText"
+            android:background="@color/colorPrimary"
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:layout_margin="5dp"

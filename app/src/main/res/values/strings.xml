@@ -63,4 +63,5 @@
     <string name="gym_rating_s">Gym Rating: %s</string>
     <string name="user_rating_s">User Rating: %s</string>
     <string name="your_rating_s">Your Rating: %s</string>
+    <string name="existing_user">existing user</string>
 </resources>

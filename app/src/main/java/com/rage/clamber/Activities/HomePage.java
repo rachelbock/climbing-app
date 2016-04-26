@@ -71,12 +71,11 @@ public class HomePage extends AppCompatActivity {
 
     @OnClick(R.id.action_bar_user_info_button)
     public void onUserInfoButtonClicked(Button button) {
-//        userInfoButton.setBackgroundColor(Color.parseColor("#0DB910"));
+//        userInfoButton.setBackgroundColor(Color.parseColor("#00695C"));
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, UserInfoFragment.newInstance(user));
         transaction.addToBackStack(null);
         transaction.commit();
-    }
 
-    //TODO: Deal with backstack/on back pressed reaction
+    }
 }

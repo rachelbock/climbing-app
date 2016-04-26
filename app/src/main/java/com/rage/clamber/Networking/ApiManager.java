@@ -10,7 +10,7 @@ public class ApiManager {
 
 
     //emulator works with 10.0.2.2 will need to change when on phone
-    private static final String API_URL = "http://10.0.2.2:8080/";
+    private static final String API_URL = "http://192.168.0.106:8080/";
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(API_URL)

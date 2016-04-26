@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.HomePage">
-
+    tools:context=".Activities.HomePage"
+    >
 
 <LinearLayout
     android:id="@+id/home_page_action_bar_linear_layout"

@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/you_have_not_marked_any_climbs_as_projects_yet_click_on_recommendations_if_you_need_any_suggestions"
+        android:textAlignment="center"
         android:visibility="invisible"
         android:layout_centerInParent="true"
         />
