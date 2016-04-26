@@ -6,8 +6,6 @@
     <string name="user_info_button_text">User Info</string>
     <string name="the_circuit_gym_text">The Circuit Bouldering Gym</string>
     <string name="circuit_image">Image of Inside of Circuit</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="gender">Gender</string>
@@ -64,4 +62,13 @@
     <string name="user_rating_s">User Rating: %s</string>
     <string name="your_rating_s">Your Rating: %s</string>
     <string name="existing_user">existing user</string>
+    <string name="clamber">CLAMBER</string>
+
+    <string-array name="main_action_tabs">
+        <item>Home</item>
+        <item>Walls</item>
+        <item>Projects</item>
+        <item>User Info</item>
+    </string-array>
+
 </resources>

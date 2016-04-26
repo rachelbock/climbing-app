@@ -1,8 +1,10 @@
 package com.rage.clamber.Activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
 import com.rage.clamber.Data.User;
@@ -26,6 +28,9 @@ public class HomePage extends AppCompatActivity {
     public User user;
     @Bind(R.id.action_bar_user_info_button)
     Button userInfoButton;
+    @Bind(R.id.home_page_toolbar)
+    Toolbar toolbar;
+    protected String[] actionBarTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,10 @@ public class HomePage extends AppCompatActivity {
         ButterKnife.bind(this);
 
         user=getIntent().getParcelableExtra(LoginActivity.ARG_USER);
+        toolbar.setTitle(R.string.clamber);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        actionBarTabs = getResources().getStringArray(R.array.main_action_tabs);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance(user));

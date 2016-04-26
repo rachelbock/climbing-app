@@ -12,5 +12,7 @@
 
     <color name="greyCardViewBackground">#e6e9ec</color>
     <color name="colorButtonOnClick">#004D40</color>
+    <color name="light_green">#E0F2F1</color>
+    <color name="medium_green">#00897B</color>
 
 </resources>

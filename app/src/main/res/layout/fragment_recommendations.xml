@@ -20,7 +20,6 @@
             android:gravity="center"
             android:text="@string/recommendations"
             android:textSize="@dimen/page_title_text"
-            android:textStyle="bold"
             android:layout_marginBottom="5dp"
             />
         <android.support.v7.widget.RecyclerView
