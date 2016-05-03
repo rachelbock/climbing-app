@@ -222,6 +222,23 @@ public class ClimbDetailFragment extends Fragment {
         noCommentsText.setVisibility(View.INVISIBLE);
     }
 
+    protected String setYourRatingString(int resource, int rating) {
+        if (rating == -1) {
+            return getContext().getString(resource, "B");
+        } else {
+            return getContext().getString(resource, rating);
+        }
+    }
+
+    protected String setUserRatingString(int resource, double rating) {
+        if (rating == -1) {
+            return getContext().getString(resource, "B");
+        } else {
+            String shortRating = String.format("%.1f", rating);
+            return getContext().getString(resource, shortRating);
+        }
+    }
+
     /**
      * Method to get the User Rating from the database and populate the Your Rating Text View.
      *
@@ -245,12 +262,7 @@ public class ClimbDetailFragment extends Fragment {
                         if (yourRatingInt == NO_DATA) {
                             yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, ""));
                         } else {
-                            Log.d(TAG, "Int " + yourRatingInt);
-                            if (yourRatingInt == -1) {
-                                yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, "B"));
-                            } else {
-                                yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, yourRatingInt));
-                            }
+                            yourRatingTextView.setText(setYourRatingString(R.string.your_rating_s, yourRatingInt));
                         }
                     } else {
                         Log.d(TAG, "Non 200 response returned - check server");
@@ -291,12 +303,7 @@ public class ClimbDetailFragment extends Fragment {
                         if (userAvgRating == NO_DATA) {
                             userRatingTextView.setText(getContext().getString(R.string.user_rating_s, ""));
                         } else {
-                            if (userAvgRating == -1){
-                                userRatingTextView.setText(getContext().getString(R.string.user_rating_s, "B"));
-                            }
-                            else {
-                                userRatingTextView.setText(getContext().getString(R.string.user_rating_s, String.format("%.1f", userAvgRating)));
-                            }
+                            userRatingTextView.setText(setUserRatingString(R.string.user_rating_s, userAvgRating));
                         }
                     } else {
                         Log.d(TAG, "Non 200 response code returned");
@@ -326,20 +333,9 @@ public class ClimbDetailFragment extends Fragment {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.code() == 200) {
-                    if (response.body() == -1){
-                        yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, "B"));
-                    }
-                    else {
-                        yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, response.body()));
-                    }
+                    yourRatingTextView.setText(setYourRatingString(R.string.your_rating_s, yourRatingInt));
                     getAvgUserRatingForClimb(climb.getClimbId());
-                    if (userAvgRating == -1){
-                        userRatingTextView.setText(getContext().getString(R.string.user_rating_s, "B"));
-                    }
-                    else {
-                        userRatingTextView.setText(getContext().getString(R.string.user_rating_s, String.format("%.1f", userAvgRating)));
-                    }
-
+                    userRatingTextView.setText(setUserRatingString(R.string.user_rating_s, userAvgRating));
                 } else {
                     Log.d(TAG, "Non 200 response code returned - check server");
                 }
@@ -358,7 +354,7 @@ public class ClimbDetailFragment extends Fragment {
      *
      * @param arrowType - takes in either +1 or -1
      */
-    public void onArrowClicked(int arrowType) {
+    protected void onArrowClicked(int arrowType) {
         UserRatingRequest request = new UserRatingRequest();
         request.setUsername(mainUser.getUserName());
         request.setClimbId(climb.getClimbId());

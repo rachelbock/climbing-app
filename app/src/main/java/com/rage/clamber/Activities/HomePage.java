@@ -42,7 +42,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         ButterKnife.bind(this);
 
-        user=getIntent().getParcelableExtra(LoginActivity.ARG_USER);
+        user = getIntent().getParcelableExtra(LoginActivity.ARG_USER);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.clamber_title_text);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -78,37 +78,23 @@ public class HomePage extends AppCompatActivity {
     /**
      * Called when onTabSelected and onTabReselcted are called to handle which fragment to launch
      * when each tab is selected.
+     *
      * @param tab - the tab that was selected.
      */
     public void tabSelected(TabLayout.Tab tab) {
-        if (tab.getPosition() == 0){
-            clearBackstack();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        clearBackstack();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (tab.getPosition() == 0) {
             transaction.replace(R.id.home_page_frame_layout, HomeFragment.newInstance(user));
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if (tab.getPosition() == 1){
-            clearBackstack();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        } else if (tab.getPosition() == 1) {
             transaction.replace(R.id.home_page_frame_layout, WallsFragment.newInstance(user));
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if (tab.getPosition() == 2){
-            clearBackstack();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        } else if (tab.getPosition() == 2) {
             transaction.replace(R.id.home_page_frame_layout, ProjectsFragment.newInstance(user));
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if (tab.getPosition() == 3) {
-            clearBackstack();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        } else if (tab.getPosition() == 3) {
             transaction.replace(R.id.home_page_frame_layout, UserInfoFragment.newInstance(user));
-            transaction.addToBackStack(null);
-            transaction.commit();
         }
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**
@@ -126,13 +112,11 @@ public class HomePage extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        }
-        else if (getSupportFragmentManager().getBackStackEntryCount()==1){
+        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             TabLayout.Tab tab = tabLayout.getTabAt(0);
             tab.select();
             getSupportFragmentManager().popBackStack();
-        }
-        else {
+        } else {
             getSupportFragmentManager().popBackStack();
         }
     }
@@ -164,7 +148,7 @@ public class HomePage extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.activity_home_logout_icon){
+        if (item.getItemId() == R.id.activity_home_logout_icon) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
