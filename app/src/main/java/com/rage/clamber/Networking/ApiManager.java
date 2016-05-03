@@ -9,8 +9,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class ApiManager {
 
 
-    //emulator works with 10.0.2.2 will need to change when on phone
-    private static final String API_URL = "http://10.0.2.2:8080/";
+    //emulator works with 10.0.2.2. 104.154.102.192 for VM
+    private static final String API_URL = "http://104.154.102.192:8080/";
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(API_URL)

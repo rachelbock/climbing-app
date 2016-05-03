@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.Walls;
 
 
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- *
+ * Fragment to display the main walls.
  */
 public class WallsFragment extends Fragment {
 
@@ -53,10 +53,10 @@ public class WallsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         mainUser = getArguments().getParcelable(HomePage.ARG_USER);
 
-        Picasso.with(getActivity()).load(R.drawable.wall_1).fit().centerCrop().into(wall1Image);
-        Picasso.with(getActivity()).load(R.drawable.wall_2).fit().centerCrop().into(wall2Image);
-        Picasso.with(getActivity()).load(R.drawable.wall_3).fit().centerCrop().into(wall3Image);
-        Picasso.with(getActivity()).load(R.drawable.wall_4).fit().centerCrop().into(wall4Image);
+        Picasso.with(getActivity()).load(R.drawable.wall_1_p).fit().centerCrop().into(wall1Image);
+        Picasso.with(getActivity()).load(R.drawable.wall_2_p).fit().centerCrop().into(wall2Image);
+        Picasso.with(getActivity()).load(R.drawable.wall_3_p).fit().centerCrop().into(wall3Image);
+        Picasso.with(getActivity()).load(R.drawable.wall_4_p).fit().centerCrop().into(wall4Image);
         return rootView;
     }
 

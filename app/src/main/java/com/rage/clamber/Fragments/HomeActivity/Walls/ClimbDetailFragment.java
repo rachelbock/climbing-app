@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.Walls;
 
 
 import android.content.Context;
@@ -49,6 +49,8 @@ public class ClimbDetailFragment extends Fragment {
 
     public static final String TAG = ClimbDetailFragment.class.getSimpleName();
     public static final int NO_DATA = -2;
+    public static final int MAX_RATING = 12;
+    public static final int MIN_RATING = -1;
 
     protected User mainUser;
     protected List<Comment> comments;
@@ -220,6 +222,23 @@ public class ClimbDetailFragment extends Fragment {
         noCommentsText.setVisibility(View.INVISIBLE);
     }
 
+    protected String setYourRatingString(int resource, int rating) {
+        if (rating == -1) {
+            return getContext().getString(resource, "B");
+        } else {
+            return getContext().getString(resource, rating);
+        }
+    }
+
+    protected String setUserRatingString(int resource, double rating) {
+        if (rating == -1) {
+            return getContext().getString(resource, "B");
+        } else {
+            String shortRating = String.format("%.1f", rating);
+            return getContext().getString(resource, shortRating);
+        }
+    }
+
     /**
      * Method to get the User Rating from the database and populate the Your Rating Text View.
      *
@@ -232,7 +251,7 @@ public class ClimbDetailFragment extends Fragment {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            Call<Integer> yourRatingCall = ApiManager.getClamberService().getRatingForClimbByUser(climbId, userName);
+            final Call<Integer> yourRatingCall = ApiManager.getClamberService().getRatingForClimbByUser(climbId, userName);
             yourRatingCall.enqueue(new Callback<Integer>() {
                 @Override
                 public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -243,7 +262,7 @@ public class ClimbDetailFragment extends Fragment {
                         if (yourRatingInt == NO_DATA) {
                             yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, ""));
                         } else {
-                            yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, yourRatingInt));
+                            yourRatingTextView.setText(setYourRatingString(R.string.your_rating_s, yourRatingInt));
                         }
                     } else {
                         Log.d(TAG, "Non 200 response returned - check server");
@@ -284,7 +303,7 @@ public class ClimbDetailFragment extends Fragment {
                         if (userAvgRating == NO_DATA) {
                             userRatingTextView.setText(getContext().getString(R.string.user_rating_s, ""));
                         } else {
-                            userRatingTextView.setText(getContext().getString(R.string.user_rating_s, userAvgRating));
+                            userRatingTextView.setText(setUserRatingString(R.string.user_rating_s, userAvgRating));
                         }
                     } else {
                         Log.d(TAG, "Non 200 response code returned");
@@ -304,20 +323,20 @@ public class ClimbDetailFragment extends Fragment {
 
     /**
      * Method to add a rating to the database for a user based off of up and down arrow button clicks.
+     *
      * @param request - request contains the climb id, user name and rating. Information is populated
      *                in the onClick methods for the up and down arrows.
      */
-    public void addRatingForUser(UserRatingRequest request){
+    public void addRatingForUser(UserRatingRequest request) {
         final Call<Integer> addRatingCall = ApiManager.getClamberService().addUserRating(request);
         addRatingCall.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.code() == 200) {
-                    yourRatingTextView.setText(getContext().getString(R.string.your_rating_s, response.body()));
+                    yourRatingTextView.setText(setYourRatingString(R.string.your_rating_s, yourRatingInt));
                     getAvgUserRatingForClimb(climb.getClimbId());
-                    userRatingTextView.setText(getContext().getString(R.string.user_rating_s, userAvgRating));
-                }
-                else {
+                    userRatingTextView.setText(setUserRatingString(R.string.user_rating_s, userAvgRating));
+                } else {
                     Log.d(TAG, "Non 200 response code returned - check server");
                 }
             }
@@ -332,18 +351,22 @@ public class ClimbDetailFragment extends Fragment {
     /**
      * When an arrow button is clicked - adds the rating to the database with the climb id, user name
      * and existing rating.
+     *
      * @param arrowType - takes in either +1 or -1
      */
-    public void onArrowClicked(int arrowType){
+    protected void onArrowClicked(int arrowType) {
         UserRatingRequest request = new UserRatingRequest();
         request.setUsername(mainUser.getUserName());
         request.setClimbId(climb.getClimbId());
-        if (yourRatingInt != NO_DATA ){
+        if (yourRatingInt != NO_DATA) {
             yourRatingInt = yourRatingInt + arrowType;
-        }
-        else {
+        } else {
             yourRatingInt = climb.getGymRating() + arrowType;
         }
+
+        yourRatingInt = Math.min(yourRatingInt, MAX_RATING);
+        yourRatingInt = Math.max(yourRatingInt, MIN_RATING);
+
         request.setRating(yourRatingInt);
         addRatingForUser(request);
     }
@@ -353,7 +376,7 @@ public class ClimbDetailFragment extends Fragment {
      * climb id, user name and the existing rating plus one.
      */
     @OnClick(R.id.comments_fragment_up_arrow)
-    public void onUpArrowClicked(){
+    public void onUpArrowClicked() {
         onArrowClicked(1);
 
     }
@@ -363,7 +386,7 @@ public class ClimbDetailFragment extends Fragment {
      * user name and the existing rating minus one.
      */
     @OnClick(R.id.comments_fragment_down_arrow)
-    public void onDownArrowClicked(){
-       onArrowClicked(-1);
+    public void onDownArrowClicked() {
+        onArrowClicked(-1);
     }
 }

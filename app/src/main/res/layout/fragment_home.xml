@@ -2,40 +2,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rage.clamber.Fragments.HomeFragment"
+    tools:context=".Fragments.HomeActivity.Home.HomeFragment"
     android:padding="5dp"
     >
 
     <TextView
+        android:id="@+id/home_page_circuit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_to_the_clamber_app"
-        android:textAlignment="center"
-        android:textSize="@dimen/page_title_text"
-        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/the_circuit_text"
+        android:textSize="50sp"
         />
 
-    <GridLayout
-        android:id="@+id/home_page_fragment_grid_layout"
+    <TextView
+        android:id="@+id/home_page_new_walls_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"
-        >
-        <ImageView
-            android:id="@+id/home_page_image_1_grid_view"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_columnWeight="1"
-            android:tag="0"
-            />
+        android:text="@string/new_walls_this_week"
+        android:textAlignment="center"
+        android:textSize="@dimen/page_title_text"
+        android:layout_margin="10dp"
+        android:layout_below="@id/home_page_circuit_text"
+        />
 
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/home_page_new_walls_text"
+    android:layout_margin="5dp"
+    android:id="@+id/home_page_card_view">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    >
+
+    <ImageView
+        android:id="@+id/home_page_image_1_grid_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:tag="0"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
         <ImageView
             android:id="@+id/home_page_image_2_grid_view"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
             android:tag="1"
             />
 
@@ -43,32 +67,15 @@
             android:id="@+id/home_page_image_3_grid_view"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
             android:tag="2"
             />
-    </GridLayout>
 
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/home_page_fragment_title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_walls_this_week"
-        android:textSize="@dimen/page_title_text"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textStyle="bold"
-        android:layout_above="@id/home_page_fragment_grid_layout"
-        />
+</LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="@string/the_circuit_gym_text"
-        android:textSize="@dimen/page_title_text"
-        android:textStyle="bold"
-        />
+</android.support.v7.widget.CardView>
 
 </RelativeLayout>

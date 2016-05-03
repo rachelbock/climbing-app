@@ -14,61 +14,46 @@
         android:layout_margin="10dp"
         >
 
-
-        <ImageButton
-            android:id="@+id/climb_row_comments_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_info_outline_black_24dp"
-            android:layout_centerVertical="true"
-            android:background="@android:color/white"
-            />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_toStartOf="@id/climb_row_comments_button"
             >
 
         <ImageView
             android:id="@+id/climb_row_route_color_image"
-            android:layout_width="30dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/blueBackground"
-            android:layout_margin="5dp"
+            android:background="@android:color/black"
+            android:foregroundGravity="center"
+            android:src="@drawable/tape_rectangle"
             android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:padding="1dp"
             />
         <TextView
             android:id="@+id/climb_row_grade_data"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="0"
-            android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             />
 
         <TextView
             android:id="@+id/climb_row_style_data"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="crimp"
-            android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             >
             <TextView
                 android:id="@+id/climb_row_project_text"
@@ -86,11 +71,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             >
             <TextView
                 android:id="@+id/climb_row_completed_text"
@@ -108,6 +92,17 @@
                 />
 
         </LinearLayout>
+            <ImageButton
+                android:id="@+id/climb_row_comments_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_info_outline_black_24dp"
+                android:background="@android:color/white"
+                android:layout_weight="1"
+                />
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.LoginActivity;
 
 
 import android.app.Dialog;
@@ -58,7 +58,7 @@ public class NewUserDialogFragment extends DialogFragment{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (isEditTextEmpty(nameEditText) || isEditTextEmpty(heightFtEditText) || isEditTextEmpty(heightInEditText) || isEditTextEmpty(skillEditText)) {
-                                    Toast.makeText(getContext(), "Must complete all fields to create user profile", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), R.string.complete_all_fields, Toast.LENGTH_SHORT).show();
                                 } else {
                                     String userName = nameEditText.getText().toString();
                                     int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
@@ -73,7 +73,7 @@ public class NewUserDialogFragment extends DialogFragment{
                             }
 
                         })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

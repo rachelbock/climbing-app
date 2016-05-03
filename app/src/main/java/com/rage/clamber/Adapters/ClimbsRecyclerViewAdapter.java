@@ -1,6 +1,8 @@
 package com.rage.clamber.Adapters;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 import com.rage.clamber.Data.Climb;
 import com.rage.clamber.Data.Project;
 import com.rage.clamber.Data.User;
-import com.rage.clamber.Fragments.ClimbDetailFragment;
+import com.rage.clamber.Fragments.HomeActivity.Walls.ClimbDetailFragment;
 import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Networking.Requests.UserClimbDataRequest;
 import com.rage.clamber.R;
@@ -39,8 +41,6 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
 
 
     public static final String TAG = ClimbsRecyclerViewAdapter.class.getSimpleName();
-    public static final String ARG_CLIMB_ID = "Climb ID";
-    public static final String ARG_WALL = "Wall ID";
     public static final String ARG_CLIMB = "Climb";
     protected List<Climb> climbs;
     protected User mainUser;
@@ -79,11 +79,11 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
         else {
             holder.gradeDataTextView.setText("B");
         }
-//        Picasso.with(fragmentActivity).load(R.drawable.ic_info_white_24dp).fit().centerCrop().into(holder.commentsButton);
         holder.projectCheckBox.setChecked(climb.isProject());
         holder.completedCheckBox.setChecked(climb.isCompleted());
         holder.styleDataTextView.setText(climb.getType());
-        holder.routeColorImage.setBackgroundColor(Color.parseColor(climb.getTapeColor()));
+        Drawable background = holder.routeColorImage.getDrawable();
+        ((GradientDrawable)background).setColor(Color.parseColor(climb.getTapeColor()));
 
         //OnClickListener for the ProjectCheckbox. When the checkbox is checked, a network call is made
         //to the Clamber Server to add that Project for the user. If the checkbox is unchecked, a call
