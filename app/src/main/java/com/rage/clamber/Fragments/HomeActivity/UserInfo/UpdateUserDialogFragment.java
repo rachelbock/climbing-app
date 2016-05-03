@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.UserInfo;
 
 
 import android.app.AlertDialog;
@@ -43,6 +43,10 @@ public class UpdateUserDialogFragment extends DialogFragment {
         return fragment;
     }
 
+    /**
+     * Dialog collects the user's height and skill and sends them back to the UserInfoFragment to
+     * update the database.
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,7 +78,7 @@ public class UpdateUserDialogFragment extends DialogFragment {
                         }
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //do nothing

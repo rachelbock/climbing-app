@@ -56,13 +56,20 @@
     <string name="no_completed_history_yet">Once you have completed a climb, mark it as completed and it will display here.</string>
     <string name="must_complete_all_fields">Must complete all fields to create user profile</string>
     <string name="height_text">Height:</string>
-    <string name="new_walls_this_week">New Walls This Week</string>
+    <string name="new_walls_this_week">New Walls This Week!</string>
     <string name="welcome_to_the_clamber_app">Welcome to the Clamber App!</string>
-    <string name="gym_rating_s">Gym Rating: %s</string>
-    <string name="user_rating_s">User Rating: %s</string>
-    <string name="your_rating_s">Your Rating: %s</string>
+    <string name="gym_rating_s">Gym Grade: %s</string>
+    <string name="user_rating_s">User Average: %s</string>
+    <string name="your_rating_s">What do you think?: %s</string>
     <string name="existing_user">existing user</string>
     <string name="clamber">CLAMBER</string>
+    <string name="clamber_title_text">Clamber</string>
+    <string name="the_circuit">THE CIRCUIT \n NE</string>
+    <string name="cancel">Cancel</string>
+    <string name="clamber_vertical">C\nL\nA\nM\nB\nE\nR</string>
+    <string name="the_circuit_text">THE CIRCUIT</string>
+    <string name="login">Login</string>
+    <string name="complete_all_fields">Must complete all fields to create user profile</string>
 
     <string-array name="main_action_tabs">
         <item>Home</item>

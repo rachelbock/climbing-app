@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rage.clamber.Fragments.WallSectionFragment">
+    tools:context=".Fragments.HomeActivity.Walls.WallSectionFragment">
 
     <FrameLayout
         android:id="@+id/wall_section_fragment_frame_layout"

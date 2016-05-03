@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.LoginActivity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -38,13 +38,13 @@ public class ExistingUserLoginFragment extends DialogFragment {
 
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(rootView)
                 .setTitle("User Name:")
-                .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.login), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ((LoginActivity)getActivity()).existingUserPositiveClick(userName.getText().toString().trim());
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

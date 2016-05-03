@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rage.clamber.Fragments.UpdateUserDialogFragment"
+    tools:context=".Fragments.HomeActivity.UserInfo.UpdateUserDialogFragment"
     android:layout_margin="10dp"
     >
 

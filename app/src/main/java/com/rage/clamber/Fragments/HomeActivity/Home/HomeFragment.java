@@ -1,7 +1,8 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.Home;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.Data.WallSection;
+import com.rage.clamber.Fragments.HomeActivity.Walls.ClimbsFragment;
 import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.R;
 import com.squareup.picasso.Picasso;
@@ -45,7 +48,8 @@ public class HomeFragment extends Fragment {
     ImageView wallImage2;
     @Bind(R.id.home_page_image_3_grid_view)
     ImageView wallImage3;
-
+    @Bind(R.id.home_page_circuit_text)
+    TextView theCircuitText;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -67,11 +71,18 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         wallSections = new ArrayList<>();
         mainUser = getArguments().getParcelable(HomePage.ARG_USER);
+        assert mainUser != null;
         getLastUpdatedWallSections(mainUser.getUserName());
-
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Bold.ttf");
+        theCircuitText.setTypeface(typeface);
         return rootView;
     }
 
+    /**
+     * Method to get the three most recently updated walls from the database and set those Wall
+     * Section Images to the new walls section.
+     * @param username - username is passed through for path but is not used.
+     */
     public void getLastUpdatedWallSections(String username){
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -104,6 +115,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * When one of the wallSection images has been selected, this method gets the wallSection and
+     * launches the climbsFragment with that wall section information to populate the climbs that
+     * are on that wall.
+     * @param sectionImage - the wallSection image that has been selected.
+     */
     @OnClick({R.id.home_page_image_1_grid_view, R.id.home_page_image_2_grid_view, R.id.home_page_image_3_grid_view})
     public void onWallSectionClicked(ImageView sectionImage) {
         int wallNum = Integer.parseInt(sectionImage.getTag().toString());

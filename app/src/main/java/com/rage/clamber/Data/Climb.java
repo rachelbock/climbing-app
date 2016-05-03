@@ -13,7 +13,6 @@ public class Climb implements Parcelable{
 
     private int climbId;
     private int gymRating;
-    private int userRating;
     private String tapeColor;
     private int wallId;
     private boolean isProject;
@@ -23,7 +22,6 @@ public class Climb implements Parcelable{
     protected Climb(Parcel in) {
         climbId = in.readInt();
         gymRating = in.readInt();
-        userRating = in.readInt();
         tapeColor = in.readString();
         wallId = in.readInt();
         isProject = in.readByte() != 0;
@@ -61,14 +59,6 @@ public class Climb implements Parcelable{
 
     public void setGymRating(int gymRating) {
         this.gymRating = gymRating;
-    }
-
-    public int getUserRating() {
-        return userRating;
-    }
-
-    public void setUserRating(int userRating) {
-        this.userRating = userRating;
     }
 
     public String getTapeColor() {
@@ -120,7 +110,6 @@ public class Climb implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(climbId);
         dest.writeInt(gymRating);
-        dest.writeInt(userRating);
         dest.writeString(tapeColor);
         dest.writeInt(wallId);
         dest.writeByte((byte) (isProject ? 1 : 0));

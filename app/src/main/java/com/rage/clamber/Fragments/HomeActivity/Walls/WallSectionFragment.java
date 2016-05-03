@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.Walls;
 
 
 import android.content.Context;

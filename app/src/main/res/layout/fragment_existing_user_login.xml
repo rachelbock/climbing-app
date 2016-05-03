@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rage.clamber.Fragments.ExistingUserLoginFragment">
+    tools:context=".Fragments.LoginActivity.ExistingUserLoginFragment">
 
         <EditText
             android:id="@+id/existing_user_fragment_name_edit_text"

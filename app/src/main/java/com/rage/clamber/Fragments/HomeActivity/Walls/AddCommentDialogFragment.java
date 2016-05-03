@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.Walls;
 
 
 import android.app.AlertDialog;
@@ -49,7 +49,7 @@ public class AddCommentDialogFragment extends DialogFragment {
                         }
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //do nothing

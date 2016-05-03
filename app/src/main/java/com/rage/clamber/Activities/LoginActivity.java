@@ -2,21 +2,24 @@ package com.rage.clamber.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rage.clamber.Networking.ApiManager;
 import com.rage.clamber.Networking.Requests.NewUserDataRequest;
 import com.rage.clamber.Data.User;
-import com.rage.clamber.Fragments.ExistingUserLoginFragment;
-import com.rage.clamber.Fragments.NewUserDialogFragment;
+import com.rage.clamber.Fragments.LoginActivity.ExistingUserLoginFragment;
+import com.rage.clamber.Fragments.LoginActivity.NewUserDialogFragment;
 import com.rage.clamber.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -32,14 +35,19 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
     public static final String ARG_USER = "Login Activity User";
+
     protected String userName;
     protected User newUser;
+    @Bind(R.id.login_activity_clamber_text)
+    TextView clamberText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.rage.clamber.R.layout.activity_login);
         ButterKnife.bind(this);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "Montserrat-Bold.ttf");
+        clamberText.setTypeface(typeface);
     }
 
     /**
@@ -155,5 +163,17 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Exits the application when the back button is pressed.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

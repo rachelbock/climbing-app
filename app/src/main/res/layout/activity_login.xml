@@ -46,9 +46,17 @@
             android:layout_margin="5dp"
             />
 
-
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/login_activity_clamber_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="@string/clamber_vertical"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        />
 
 </RelativeLayout>

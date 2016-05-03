@@ -1,4 +1,4 @@
-package com.rage.clamber.Fragments;
+package com.rage.clamber.Fragments.HomeActivity.UserInfo;
 
 
 import android.content.Context;
@@ -131,6 +131,11 @@ public class UserInfoFragment extends Fragment {
         }
     }
 
+    /**
+     * When the History button is clicked, set the completed climbs to visible.
+     * If there are no completed climbs then a message displays telling the user to mark climbs
+     * as completed.
+     */
     @OnClick(R.id.user_fragment_history_button)
     public void onHistoryButtonClicked(){
         recyclerView.setVisibility(View.VISIBLE);
