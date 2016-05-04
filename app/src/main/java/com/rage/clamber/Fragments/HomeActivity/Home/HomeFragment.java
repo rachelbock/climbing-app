@@ -43,13 +43,13 @@ public class HomeFragment extends Fragment {
     public static final String TAG = HomeFragment.class.getSimpleName();
     public List<WallSection> wallSections;
     @Bind(R.id.home_page_image_1_grid_view)
-    ImageView wallImage1;
+    protected ImageView wallImage1;
     @Bind(R.id.home_page_image_2_grid_view)
-    ImageView wallImage2;
+    protected ImageView wallImage2;
     @Bind(R.id.home_page_image_3_grid_view)
-    ImageView wallImage3;
+    protected ImageView wallImage3;
     @Bind(R.id.home_page_circuit_text)
-    TextView theCircuitText;
+    protected TextView theCircuitText;
 
     public HomeFragment() {
         // Required empty public constructor

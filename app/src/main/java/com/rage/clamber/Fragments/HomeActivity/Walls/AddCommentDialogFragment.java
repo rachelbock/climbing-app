@@ -23,7 +23,7 @@ public class AddCommentDialogFragment extends DialogFragment {
 
 
     @Bind(R.id.add_comment_edit_text)
-    EditText addCommentEditText;
+    protected EditText addCommentEditText;
 
     public AddCommentDialogFragment() {
         // Required empty public constructor

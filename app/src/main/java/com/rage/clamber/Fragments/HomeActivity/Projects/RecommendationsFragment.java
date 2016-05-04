@@ -42,7 +42,7 @@ public class RecommendationsFragment extends Fragment {
     protected ClimbsRecyclerViewAdapter adapter;
 
     @Bind(R.id.recommendations_fragment_recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     public RecommendationsFragment() {
         // Required empty public constructor

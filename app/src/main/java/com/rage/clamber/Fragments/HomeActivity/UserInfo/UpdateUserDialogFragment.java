@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
+import com.rage.clamber.SkillLevelDataValidation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,12 +26,13 @@ import butterknife.ButterKnife;
 public class UpdateUserDialogFragment extends DialogFragment {
 
     @Bind(R.id.update_user_dialog_fragment_height_ft_edit_text)
-    EditText heightFtEditText;
+    protected EditText heightFtEditText;
     @Bind(R.id.update_user_dialog_fragment_height_inches_edit_text)
-    EditText heightInEditText;
+    protected EditText heightInEditText;
     @Bind(R.id.update_user_dialog_fragment_skill_edit_text)
-    EditText skillEditText;
+    protected EditText skillEditText;
     protected User mainUser;
+
     public UpdateUserDialogFragment() {
         // Required empty public constructor
     }
@@ -67,11 +69,15 @@ public class UpdateUserDialogFragment extends DialogFragment {
                         }
                         else if (Integer.parseInt(heightInEditText.getText().toString()) > 12) {
                             Toast.makeText(getContext(), "Invalid Inch Amount", Toast.LENGTH_SHORT).show();
-                        } else {
+                        }
+                        else if (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()) == SkillLevelDataValidation.INVALID_DATA) {
+                            Toast.makeText(getContext(), R.string.enter_valid_skill_level, Toast.LENGTH_SHORT).show();
+                        }
+                        else {
                             int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
                             int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
                             int userHeight = ((userHeightFeet * 12) + userHeightInches);
-                            int userSkill = Integer.parseInt(skillEditText.getText().toString());
+                            int userSkill = (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()));
                             User user = new User(mainUser.getUserName(), userHeight, userSkill);
                             //gets the target fragment and calls onUserUpdate with the user.
                             ((UserInfoFragment) getTargetFragment()).onUserUpdate(user);
@@ -92,4 +98,5 @@ public class UpdateUserDialogFragment extends DialogFragment {
     public boolean isEditTextEmpty(EditText editText){
         return editText.getText().toString().trim().length() == 0;
     }
+
 }

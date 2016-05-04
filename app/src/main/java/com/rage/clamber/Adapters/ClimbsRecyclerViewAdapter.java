@@ -223,24 +223,24 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     public static class ClimbsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.climb_row_comments_button)
-        ImageButton commentsButton;
+        protected ImageButton commentsButton;
 
         @Bind(R.id.climb_row_completed_checkbox)
-        CheckBox completedCheckBox;
+        protected CheckBox completedCheckBox;
 
         @Bind(R.id.climb_row_grade_data)
-        TextView gradeDataTextView;
+        protected TextView gradeDataTextView;
 
         @Bind(R.id.climb_row_route_color_image)
-        ImageView routeColorImage;
+        protected ImageView routeColorImage;
 
         @Bind(R.id.climb_row_project_checkbox)
-        CheckBox projectCheckBox;
+        protected CheckBox projectCheckBox;
 
         @Bind(R.id.climb_row_style_data)
-        TextView styleDataTextView;
+        protected TextView styleDataTextView;
 
-        View fullView;
+        protected View fullView;
 
         public ClimbsViewHolder(View itemView) {
             super(itemView);

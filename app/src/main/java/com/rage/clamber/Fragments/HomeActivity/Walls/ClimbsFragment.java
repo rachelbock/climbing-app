@@ -44,7 +44,7 @@ public class ClimbsFragment extends Fragment {
     protected ClimbsRecyclerViewAdapter adapter;
 
     @Bind(R.id.climbs_fragment_recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
 
     public ClimbsFragment() {

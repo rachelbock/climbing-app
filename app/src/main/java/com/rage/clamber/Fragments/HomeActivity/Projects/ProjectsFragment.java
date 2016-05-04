@@ -46,9 +46,9 @@ public class ProjectsFragment extends Fragment {
     protected ClimbsRecyclerViewAdapter adapter;
 
     @Bind(R.id.projects_fragment_recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
     @Bind(R.id.projects_fragment_no_projects_text)
-    TextView noProjectsText;
+    protected TextView noProjectsText;
 
     public ProjectsFragment() {
         // Required empty public constructor

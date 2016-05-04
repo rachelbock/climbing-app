@@ -45,7 +45,7 @@ public class WallSectionFragment extends Fragment implements WallsPageRecyclerVi
 
 
     @Bind(R.id.walls_page_grid_recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     public WallSectionFragment() {
         // Required empty public constructor

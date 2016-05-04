@@ -52,8 +52,7 @@
             android:id="@+id/update_user_dialog_fragment_skill_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLength="1"
+            android:maxLength="2"
             android:hint="@string/skill_level"
             />
     </android.support.design.widget.TextInputLayout>

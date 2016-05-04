@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.rage.clamber.Activities.LoginActivity;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
+import com.rage.clamber.SkillLevelDataValidation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,8 +22,7 @@ import butterknife.ButterKnife;
 /**
  * A fragment to display a dialog prompting for user information.
  */
-public class NewUserDialogFragment extends DialogFragment{
-
+public class NewUserDialogFragment extends DialogFragment {
 
 
     @Bind(R.id.user_info_dialog_fragment_name_edit_text)
@@ -34,7 +34,6 @@ public class NewUserDialogFragment extends DialogFragment{
     @Bind(R.id.user_info_dialog_fragment_skill_edit_text)
     public EditText skillEditText;
 
-
     public NewUserDialogFragment() {
         // Required empty public constructor
     }
@@ -43,6 +42,7 @@ public class NewUserDialogFragment extends DialogFragment{
     /**
      * Method to inflate and create a dialog window. Method is called from within the
      * UserInfoFragment to gather general user information.
+     *
      * @return returns the Dialog fragment.
      */
     @Override
@@ -55,24 +55,27 @@ public class NewUserDialogFragment extends DialogFragment{
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(rootView)
                 .setTitle(getString(R.string.user_informaiton))
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isEditTextEmpty(nameEditText) || isEditTextEmpty(heightFtEditText) || isEditTextEmpty(heightInEditText) || isEditTextEmpty(skillEditText)) {
-                                    Toast.makeText(getContext(), R.string.complete_all_fields, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    String userName = nameEditText.getText().toString();
-                                    int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
-                                    int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
-                                    int userHeight = ((userHeightFeet * 12) + userHeightInches);
-                                    int userSkill = Integer.parseInt(skillEditText.getText().toString());
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (isEditTextEmpty(nameEditText) || isEditTextEmpty(heightFtEditText) || isEditTextEmpty(heightInEditText) || isEditTextEmpty(skillEditText)) {
+                            Toast.makeText(getContext(), R.string.complete_all_fields, Toast.LENGTH_SHORT).show();
+                        }else if (Integer.parseInt(heightInEditText.getText().toString()) > 12) {
+                            Toast.makeText(getContext(), "Invalid Inch Amount", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()) == SkillLevelDataValidation.INVALID_DATA) {
+                            Toast.makeText(getContext(), R.string.enter_valid_skill_level, Toast.LENGTH_SHORT).show();
+                        } else {
+                            String userName = nameEditText.getText().toString();
+                            int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
+                            int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
+                            int userHeight = ((userHeightFeet * 12) + userHeightInches);
+                            int userSkill = (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()));
+                            User newUser = new User(userName, userHeight, userSkill);
 
-                                    User newUser = new User(userName, userHeight, userSkill);
-
-                                    ((LoginActivity) getActivity()).newUserPositiveClick(newUser);
-                                }
-                            }
-
-                        })
+                            ((LoginActivity) getActivity()).newUserPositiveClick(newUser);
+                        }
+                    }
+                })
                 .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -83,7 +86,7 @@ public class NewUserDialogFragment extends DialogFragment{
         return dialog;
     }
 
-    public boolean isEditTextEmpty(EditText editText){
+    protected boolean isEditTextEmpty(EditText editText) {
         return editText.getText().toString().trim().length() == 0;
     }
 
