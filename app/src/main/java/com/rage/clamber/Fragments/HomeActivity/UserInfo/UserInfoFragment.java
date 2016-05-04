@@ -84,7 +84,12 @@ public class UserInfoFragment extends Fragment {
         if (mainUser != null) {
             userNameTextView.setText(mainUser.getUserName());
             heightTextView.setText(Integer.toString(mainUser.getHeight() / 12) + "' " + Integer.toString(mainUser.getHeight() % 12) + "''");
-            skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
+
+            if (mainUser.getSkillLevel() == -1) {
+                skillLevelTextView.setText("B");
+            } else {
+                skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
+            }
         }
         climbList = new ArrayList<>();
         layoutId = R.id.home_page_frame_layout;
@@ -137,9 +142,9 @@ public class UserInfoFragment extends Fragment {
      * as completed.
      */
     @OnClick(R.id.user_fragment_history_button)
-    public void onHistoryButtonClicked(){
+    public void onHistoryButtonClicked() {
         recyclerView.setVisibility(View.VISIBLE);
-        if (climbList.isEmpty()){
+        if (climbList.isEmpty()) {
             noHistoryText.setVisibility(View.VISIBLE);
         }
     }
@@ -149,7 +154,7 @@ public class UserInfoFragment extends Fragment {
      * OnClick method to launch the update user dialog fragment.
      */
     @OnClick(R.id.user_info_fragment_about_me_button)
-    public void onUpdateInfoButtonClicked(){
+    public void onUpdateInfoButtonClicked() {
         UpdateUserDialogFragment dialogFragment = UpdateUserDialogFragment.newInstance(mainUser);
         //Sets this fragment as the target fragment for the dialogfragment
         dialogFragment.setTargetFragment(this, 0);
@@ -158,6 +163,7 @@ public class UserInfoFragment extends Fragment {
 
     /**
      * Method called from UpdateUserDialogFragment to send a post to update the existing user info.
+     *
      * @param user
      */
     public void onUserUpdate(User user) {
@@ -177,8 +183,12 @@ public class UserInfoFragment extends Fragment {
                     User updatedUser = response.body();
                     mainUser.setHeight(updatedUser.getHeight());
                     mainUser.setSkillLevel(updatedUser.getSkillLevel());
-                    heightTextView.setText(Integer.toString(mainUser.getHeight()/12) + "' " + Integer.toString(mainUser.getHeight()%12) + "''");
-                    skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
+                    heightTextView.setText(Integer.toString(mainUser.getHeight() / 12) + "' " + Integer.toString(mainUser.getHeight() % 12) + "''");
+                    if (mainUser.getSkillLevel() == -1) {
+                        skillLevelTextView.setText("B");
+                    } else {
+                        skillLevelTextView.setText(Integer.toString(mainUser.getSkillLevel()));
+                    }
                 }
 
                 @Override
@@ -186,8 +196,7 @@ public class UserInfoFragment extends Fragment {
                     Log.d(TAG, "failed to update user", t);
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(getContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
         }
 

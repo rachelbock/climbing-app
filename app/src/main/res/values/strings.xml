@@ -70,6 +70,7 @@
     <string name="the_circuit_text">THE CIRCUIT</string>
     <string name="login">Login</string>
     <string name="complete_all_fields">Must complete all fields to create user profile</string>
+    <string name="enter_valid_skill_level">Please enter a valid skill level</string>
 
     <string-array name="main_action_tabs">
         <item>Home</item>
