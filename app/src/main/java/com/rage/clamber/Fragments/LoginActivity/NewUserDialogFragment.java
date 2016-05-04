@@ -63,7 +63,10 @@ public class NewUserDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (isEditTextEmpty(nameEditText) || isEditTextEmpty(heightFtEditText) || isEditTextEmpty(heightInEditText) || isEditTextEmpty(skillEditText)) {
                             Toast.makeText(getContext(), R.string.complete_all_fields, Toast.LENGTH_SHORT).show();
-                        } else if (getSkillLevel(skillEditText.getText().toString()) == INVALID_DATA) {
+                        }else if (Integer.parseInt(heightInEditText.getText().toString()) > 12) {
+                            Toast.makeText(getContext(), "Invalid Inch Amount", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (getSkillLevel(skillEditText.getText().toString()) == INVALID_DATA) {
                             Toast.makeText(getContext(), R.string.enter_valid_skill_level, Toast.LENGTH_SHORT).show();
                         } else {
                             String userName = nameEditText.getText().toString();

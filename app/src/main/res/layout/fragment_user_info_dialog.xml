@@ -32,6 +32,7 @@
                android:layout_height="wrap_content"
                android:hint="@string/height_feet"
                android:inputType="number"
+               android:maxLength="1"
                />
        </android.support.design.widget.TextInputLayout>
 
@@ -47,6 +48,7 @@
                android:layout_height="wrap_content"
                android:hint="@string/height_inches"
                android:inputType="number"
+               android:maxLength="2"
                />
        </android.support.design.widget.TextInputLayout>
 
