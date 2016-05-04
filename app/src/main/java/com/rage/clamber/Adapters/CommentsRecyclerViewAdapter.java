@@ -67,13 +67,13 @@ public class CommentsRecyclerViewAdapter extends RecyclerView.Adapter<CommentsRe
     public static class CommentsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.comments_row_username_text_view)
-        TextView usernameTextView;
+        protected TextView usernameTextView;
         @Bind(R.id.comments_row_comments_text_view)
-        TextView commentsTextView;
+        protected TextView commentsTextView;
         @Bind(R.id.comments_row_date_text_view)
-        TextView dateTextView;
+        protected TextView dateTextView;
 
-        View fullView;
+        protected View fullView;
 
         public CommentsViewHolder(View itemView) {
             super(itemView);

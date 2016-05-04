@@ -31,10 +31,10 @@ public class HomePage extends AppCompatActivity {
     public static final String ARG_USER = "main user";
     public User user;
     @Bind(R.id.home_page_toolbar)
-    Toolbar toolbar;
+    protected Toolbar toolbar;
     protected String[] actionBarTabs;
     @Bind(R.id.home_page_tab_layout)
-    TabLayout tabLayout;
+    protected TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

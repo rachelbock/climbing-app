@@ -70,8 +70,8 @@ public class WallsPageRecyclerViewAdapter extends RecyclerView.Adapter<WallsPage
 
     public static class WallsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.wall_grid_image_view)
-        ImageView wallImageView;
-        View fullView;
+        protected ImageView wallImageView;
+        protected View fullView;
         public WallsViewHolder(View itemView) {
             super(itemView);
             fullView = itemView;

@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import com.rage.clamber.Activities.HomePage;
 import com.rage.clamber.Data.User;
 import com.rage.clamber.R;
+import com.rage.clamber.SkillLevelDataValidation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,15 +26,13 @@ import butterknife.ButterKnife;
 public class UpdateUserDialogFragment extends DialogFragment {
 
     @Bind(R.id.update_user_dialog_fragment_height_ft_edit_text)
-    EditText heightFtEditText;
+    protected EditText heightFtEditText;
     @Bind(R.id.update_user_dialog_fragment_height_inches_edit_text)
-    EditText heightInEditText;
+    protected EditText heightInEditText;
     @Bind(R.id.update_user_dialog_fragment_skill_edit_text)
-    EditText skillEditText;
-    public static final int INVALID_DATA = -8000;
-    public static final int MIN_SKILL = 0;
-    public static final int MAX_SKILL = 12;
+    protected EditText skillEditText;
     protected User mainUser;
+
     public UpdateUserDialogFragment() {
         // Required empty public constructor
     }
@@ -72,14 +70,14 @@ public class UpdateUserDialogFragment extends DialogFragment {
                         else if (Integer.parseInt(heightInEditText.getText().toString()) > 12) {
                             Toast.makeText(getContext(), "Invalid Inch Amount", Toast.LENGTH_SHORT).show();
                         }
-                        else if (getSkillLevel(skillEditText.getText().toString()) == INVALID_DATA) {
+                        else if (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()) == SkillLevelDataValidation.INVALID_DATA) {
                             Toast.makeText(getContext(), R.string.enter_valid_skill_level, Toast.LENGTH_SHORT).show();
                         }
                         else {
                             int userHeightFeet = Integer.parseInt(heightFtEditText.getText().toString());
                             int userHeightInches = Integer.parseInt(heightInEditText.getText().toString());
                             int userHeight = ((userHeightFeet * 12) + userHeightInches);
-                            int userSkill = (getSkillLevel(skillEditText.getText().toString()));
+                            int userSkill = (SkillLevelDataValidation.getSkillLevel(skillEditText.getText().toString()));
                             User user = new User(mainUser.getUserName(), userHeight, userSkill);
                             //gets the target fragment and calls onUserUpdate with the user.
                             ((UserInfoFragment) getTargetFragment()).onUserUpdate(user);
@@ -101,25 +99,4 @@ public class UpdateUserDialogFragment extends DialogFragment {
         return editText.getText().toString().trim().length() == 0;
     }
 
-    /**
-     * Method to determine whether the user input skill level is valid.
-     * @param skillLevel - the user intput string
-     * @return - an integer value that will be stored in the database. If the string is not valid
-     * it returns a defined invalid int to check for.
-     */
-    protected int getSkillLevel(String skillLevel) {
-
-        int userSkill = INVALID_DATA;
-
-        if (skillLevel.equals("b") || skillLevel.equals("B")) {
-            userSkill = -1;
-        } else if (TextUtils.isDigitsOnly(skillLevel)) {
-
-            if (Integer.parseInt(skillLevel) >= MIN_SKILL && Integer.parseInt(skillLevel) <= MAX_SKILL) {
-                userSkill = Integer.parseInt(skillLevel);
-            }
-        }
-
-        return userSkill;
-    }
 }

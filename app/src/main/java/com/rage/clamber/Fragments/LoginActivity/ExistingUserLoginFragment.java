@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class ExistingUserLoginFragment extends DialogFragment {
 
     @Bind(R.id.existing_user_fragment_name_edit_text)
-    EditText userName;
+    protected EditText userName;
 
     public ExistingUserLoginFragment() {
         //Empty Constructor

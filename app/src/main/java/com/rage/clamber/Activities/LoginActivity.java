@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected String userName;
     protected User newUser;
     @Bind(R.id.login_activity_clamber_text)
-    TextView clamberText;
+    protected TextView clamberText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
