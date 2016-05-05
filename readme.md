@@ -2,6 +2,8 @@
 
 The Clamber App is designed to display all of the climbs at The Circuit Bouldering Gym NE and allow for project and completion tracking.
 
+To try out the app, download the APK available in the release section. 
+
 Key Features:
 - Project Tracking
 - History Tracking
