@@ -113,8 +113,12 @@ public class ClimbDetailFragment extends Fragment {
         if (climb.isCompleted()) {
             completedCheck.setVisibility(View.VISIBLE);
         }
-
-        gymRatingTextView.setText(getContext().getString(R.string.gym_rating_s, climb.getGymRating()));
+        if (climb.getGymRating() == -1){
+            gymRatingTextView.setText(getContext().getString(R.string.gym_rating_s, "B"));
+        }
+        else{
+            gymRatingTextView.setText(getContext().getString(R.string.gym_rating_s, climb.getGymRating()));
+        }
         getYourRating(climb.getClimbId(), mainUser.getUserName());
         getAvgUserRatingForClimb(climb.getClimbId());
         getCommentsByClimb(climb.getClimbId());
