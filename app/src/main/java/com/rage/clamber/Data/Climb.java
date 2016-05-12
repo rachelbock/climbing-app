@@ -18,6 +18,7 @@ public class Climb implements Parcelable{
     private boolean isProject;
     private boolean isCompleted;
     private String type;
+    private boolean removed;
 
     protected Climb(Parcel in) {
         climbId = in.readInt();
@@ -27,6 +28,7 @@ public class Climb implements Parcelable{
         isProject = in.readByte() != 0;
         isCompleted = in.readByte() != 0;
         type = in.readString();
+        removed = in.readByte() != 0;
     }
 
     public Climb() {
@@ -101,6 +103,14 @@ public class Climb implements Parcelable{
         this.type = type;
     }
 
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -115,5 +125,6 @@ public class Climb implements Parcelable{
         dest.writeByte((byte) (isProject ? 1 : 0));
         dest.writeByte((byte) (isCompleted ? 1 : 0));
         dest.writeString(type);
+        dest.writeByte((byte) (isRemoved() ? 1 : 0));
     }
 }
