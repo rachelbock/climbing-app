@@ -2,7 +2,9 @@
 
 The Clamber App is designed to display all of the climbs at The Circuit Bouldering Gym NE and allow for project and completion tracking.
 
-To try out the app, download the APK available in the release section. 
+Try out the app here: [Clamber Release] (https://github.com/rachelbock/climbing-app/releases)
+
+Source code for the server available here: [Clamber Server] (https://github.com/rachelbock/clamber-server)
 
 Key Features:
 - Project Tracking
