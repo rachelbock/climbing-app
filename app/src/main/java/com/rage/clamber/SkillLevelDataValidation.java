@@ -1,7 +1,5 @@
 package com.rage.clamber;
 
-import android.text.TextUtils;
-
 /**
  * Class for skill level conatants. Used in new user dialog fragment and update user dialog fragment.
  */
@@ -13,6 +11,7 @@ public class SkillLevelDataValidation {
 
     /**
      * Method to determine whether the user input skill level is valid.
+     *
      * @param skillLevel - the user input string
      * @return - an integer value that will be stored in the database. If the string is not valid
      * it returns a defined invalid int to check for.
@@ -21,10 +20,11 @@ public class SkillLevelDataValidation {
     public static int getSkillLevel(String skillLevel) {
 
         int userSkill = INVALID_DATA;
-
-        if (skillLevel.equals("b") || skillLevel.equals("B")) {
+        if (skillLevel == null) {
+            return userSkill;
+        } else if (skillLevel.equals("b") || skillLevel.equals("B")) {
             userSkill = -1;
-        } else if (TextUtils.isDigitsOnly(skillLevel)) {
+        } else if (skillLevel.matches("[0-9]+")) {
 
             if (Integer.parseInt(skillLevel) >= MIN_SKILL && Integer.parseInt(skillLevel) <= MAX_SKILL) {
                 userSkill = Integer.parseInt(skillLevel);
