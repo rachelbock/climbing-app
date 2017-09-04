@@ -6,24 +6,27 @@
     tools:context=".Fragments.HomeActivity.Projects.ProjectsFragment"
     android:layout_margin="5dp"
     >
-<Button
-    android:id="@+id/projects_fragment_recommendations_fragment"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/recommendations_text"
-    android:textColor="@android:color/white"
-    android:textSize="12dp"
-    android:layout_alignParentEnd="true"
-    />
+
     <TextView
         android:id="@+id/projects_fragment_projects_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/projects_button"
         android:textSize="@dimen/page_title_text"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
+        />
+
+    <Button
+        android:id="@+id/projects_fragment_recommendations_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recommendations"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary"
         />
     <TextView
         android:id="@+id/projects_fragment_no_projects_text"

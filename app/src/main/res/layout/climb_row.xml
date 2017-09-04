@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="10dp"
             android:padding="1dp"
-            />
+            android:layout_marginRight="10dp" />
         <TextView
             android:id="@+id/climb_row_grade_data"
             android:layout_width="0dp"

@@ -96,6 +96,7 @@
                 android:padding="5dp"
                 android:layout_weight="1"
                 android:layout_gravity="bottom"
+                android:background="@color/colorPrimary"
                 />
         </LinearLayout>
 
@@ -113,6 +114,7 @@
             android:padding="10dp"
             android:textColor="@android:color/white"
             android:layout_below="@id/user_info_fragment_card_view"
+            android:background="@color/colorPrimary"
             />
 
         <TextView

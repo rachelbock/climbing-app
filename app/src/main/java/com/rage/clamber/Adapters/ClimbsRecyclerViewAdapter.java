@@ -63,7 +63,8 @@ public class ClimbsRecyclerViewAdapter extends RecyclerView.Adapter<ClimbsRecycl
     @Override
     public ClimbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View climbsView = inflater.inflate(R.layout.climb_row, parent, false);
+
+        View climbsView = inflater.inflate(R.layout.small_climb_row, parent, false);
         return new ClimbsViewHolder(climbsView);
     }
 
